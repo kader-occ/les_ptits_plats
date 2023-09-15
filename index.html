@@ -9,7 +9,22 @@
 </head>
 
 <body>
-
+  <header>
+    <a href="index.html">
+      <img src="assets/images/logo.png" alt="logo" class="logo" />
+    </a>
+    <h1>
+      Cherchez parmis plus de 1500 recettes du quotidien, simples et
+      délicieuses
+    </h1>
+    <form id="search-form" role="form">
+      <input type="text" placeholder="Rechercher une recette, un ingrédient..." id="search-input" />
+      <button type="submit">
+        <img src="assets/images/search_icon.png" alt="search" id="search-form-btn-submit" />
+      </button>
+      <span id="btn-reset-search-form" class="d-none">x</span>
+    </form>
+  </header>
 </body>
 
 <script src="./node_modules/@popperjs/core/dist/umd/popper.min.js"></script>

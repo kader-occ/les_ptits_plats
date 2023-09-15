@@ -25,3 +25,60 @@ body {
   font-weight: 400;
   height: 100%;
 }
+
+header {
+  background-image: url(../images/hero.png);
+  background-position: top center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  height: 700px;
+}
+
+header .logo {
+  padding: 50px;
+}
+
+header h1 {
+  color: var(--yellow);
+  font-size: 44px;
+  text-align: center;
+  font-family: var(--anton-font);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  width: 75%;
+  display: block;
+  margin: 160px auto 0;
+}
+
+header form {
+  width: 100%;
+  display: flex;
+  margin: 30px auto;
+  height: 72px;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+header form input {
+  width: 70%;
+  padding: 25px 10px 25px 35px;
+  border-radius: 8px;
+  border: none;
+  font-size: 16px;
+}
+
+header form #inputSearchBtnReset {
+  margin-left: -90px;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+header form button {
+  border: none;
+}
+
+header form img {
+  margin-left: -60px;
+  cursor: pointer;
+}
