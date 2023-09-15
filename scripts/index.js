@@ -68,7 +68,7 @@ onload = () => {
       btnResetSearchForm.addEventListener("click", (ev) => {
         ev.preventDefault();
         searchInput.value = "";
-        btnResetSearchForm.className = "d-none";
+        btnResetSearchForm.classList.add("d-none");
         displayResult(totalRecipes);
       });
     }
