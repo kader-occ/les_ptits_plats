@@ -1,0 +1,27 @@
+@import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@400;500&display=swap");
+@import "../../node_modules/bootstrap/dist/css/bootstrap.min.css";
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+:root {
+  --yellow: #ffd15b;
+  --light-gray: #ededed;
+  --gray: #7a7a7a;
+  --black: #1b1b1b;
+  --anton-font: "Anton", sans-serif;
+}
+
+body {
+  background-color: var(--light-gray) !important;
+  color: var(--gray) !important;
+  display: block;
+  margin: auto;
+  font-family: "Manrope", sans-serif;
+  font-size: 100%;
+  font-weight: 400;
+  height: 100%;
+}
