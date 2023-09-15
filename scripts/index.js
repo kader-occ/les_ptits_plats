@@ -74,15 +74,35 @@ onload = () => {
     }
   };
 
-  //Version fonctionnelle recupere les recette(s) par tags
+  //Version native recupere les recette(s) par tags
   const getRecipes = (searchKeywords) => {
-    return totalRecipes.filter((recipe) => {
-      return (
-        recipe.name.toLowerCase() === searchKeywords ||
-        recipe.ingredients.includes(searchKeywords) ||
-        recipe.description.includes(searchKeywords)
-      );
+    let recipeArr = [];
+    totalRecipes.forEach((recipe) => {
+      if (recipe.name.toLowerCase().includes(searchKeywords.toLowerCase())) {
+        if (!recipeArr.includes(recipe)) {
+          recipeArr.push(recipe);
+        }
+      }
+      recipe.ingredients.forEach((ingredient) => {
+        if (
+          ingredient.ingredient
+            .toLowerCase()
+            .includes(searchKeywords.toLowerCase())
+        ) {
+          if (!recipeArr.includes(recipe)) {
+            recipeArr.push(recipe);
+          }
+        }
+      });
+      if (
+        recipe.description.toLowerCase().includes(searchKeywords.toLowerCase())
+      ) {
+        if (!recipeArr.includes(recipe)) {
+          recipeArr.push(recipe);
+        }
+      }
     });
+    return recipeArr;
   };
 
   displayResult(totalRecipes);
