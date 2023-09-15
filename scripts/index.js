@@ -34,14 +34,16 @@ onload = () => {
    * @param {Array} recipeArr
    */
   const displayResult = (recipeArr) => {
-    const btnResetSearchForm = document.querySelector("#btn-reset-search-form");
+    const btnResetHeaderSearchForm = document.querySelector(
+      "#btn-reset-header-search-form"
+    );
     const mainDom = document.querySelector("main");
     const resultsDom = document.querySelector("#recipe-result-search");
     const recipeCards = document.getElementsByClassName("recipe-card");
 
     if (recipeArr.length < totalRecipes.length) {
       removeHtmlElement(recipeCards);
-      btnResetSearchForm.classList.remove("d-none");
+      btnResetHeaderSearchForm.classList.remove("d-none");
     }
 
     totalRecipesDom.textContent = recipeArr.length;
@@ -65,10 +67,10 @@ onload = () => {
         mainDom.append(resultsDom);
       });
 
-      btnResetSearchForm.addEventListener("click", (ev) => {
+      btnResetHeaderSearchForm.addEventListener("click", (ev) => {
         ev.preventDefault();
         searchInput.value = "";
-        btnResetSearchForm.classList.add("d-none");
+        btnResetHeaderSearchForm.classList.add("d-none");
         displayResult(totalRecipes);
       });
     }
