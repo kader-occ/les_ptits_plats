@@ -1,4 +1,6 @@
 import { totalRecipes } from "../../data/recipes.js";
+import { cardRecipeFactory } from "./UI/card-recipe-factory-ui.js";
+import { removeHtmlElement } from "./utils/removeHtmlElement.js";
 
 onload = () => {
   console.log(totalRecipes);
@@ -32,7 +34,15 @@ onload = () => {
    * @param {Array} recipeArr
    */
   const displayResult = (recipeArr) => {
+    const btnResetSearchForm = document.querySelector("#btn-reset-search-form");
     const mainDom = document.querySelector("main");
+    const resultsDom = document.querySelector("#recipe-result-search");
+    const recipeCards = document.getElementsByClassName("recipe-card");
+
+    if (recipeArr.length < totalRecipes.length) {
+      removeHtmlElement(recipeCards);
+      btnResetSearchForm.classList.remove("d-none");
+    }
 
     totalRecipesDom.textContent = recipeArr.length;
 
@@ -43,10 +53,28 @@ onload = () => {
       noResultDom.className = "my-5 text-center";
       noResultDom.textContent = "Aucune recette contient " + searchInput.value;
       mainDom.append(noResultDom);
+    } else {
+      // Scénario alternatif A2
+      const noResultDom = document.querySelector("#no-results");
+      if (noResultDom) {
+        noResultDom.remove();
+      }
+      recipeArr.map((recipe) => {
+        const recipeCard = cardRecipeFactory(recipe);
+        resultsDom.append(recipeCard);
+        mainDom.append(resultsDom);
+      });
+
+      btnResetSearchForm.addEventListener("click", (ev) => {
+        ev.preventDefault();
+        searchInput.value = "";
+        btnResetSearchForm.className = "d-none";
+        displayResult(totalRecipes);
+      });
     }
   };
 
-  //Fonction recupere recette(s) selon mot(s)-clé(s)
+  //Version fonctionnelle recupere les recette(s) par tags
   const getRecipes = (searchKeywords) => {
     return totalRecipes.filter((recipe) => {
       return (
