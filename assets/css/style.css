@@ -68,9 +68,9 @@ header form input {
   font-size: 16px;
 }
 
-header form #inputSearchBtnReset {
+header form #btn-reset-search-form {
   margin-left: -90px;
-  font-size: 22px;
+  font-size: 26px;
   cursor: pointer;
 }
 
