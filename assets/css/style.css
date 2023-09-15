@@ -82,3 +82,40 @@ header form img {
   margin-left: -60px;
   cursor: pointer;
 }
+
+main {
+  padding: 0 102px;
+}
+
+main #filters .select-box {
+  background: #fff;
+  cursor: pointer;
+  padding: 14px;
+  border: 1px solid #d9d7d7;
+  border-radius: 6px;
+  height: auto;
+  position: absolute;
+  z-index: 1;
+  width: -webkit-fill-available;
+  margin-right: 60px;
+}
+
+main #filters .select-box span {
+  pointer-events: none;
+}
+
+main #filters .select-box .icon-search-filter {
+  margin-left: -20px;
+}
+
+main #filters #total-recipes {
+  text-align: right;
+  font-family: var(--anton-font);
+  font-size: 21px;
+  color: var(--black);
+  margin-top: 15px;
+}
+
+main #filters span {
+  color: #1b1b1b;
+}
