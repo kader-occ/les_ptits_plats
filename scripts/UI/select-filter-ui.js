@@ -1,102 +1,110 @@
-import { totalRecipes } from "../../../data/recipes.js";
-import { removeHtmlElement } from "../../utils/removeHtmlElement.js";
-
-let count = 0;
-
-const rotateHtmlElement = (htmlElement) => {
-  count++;
-  let deg = count * 180;
-  htmlElement.style.transform = "rotate(" + deg + "deg)";
-};
+import { rotateHtmlElement } from "../utils/rotateHtmlElement.js";
+import { createBadgeFilter } from "./badge-filter-ui.js";
 
 /**
- * Gestion du select Filter
+ * Gestion Select recherche avancée
  * @param {event} event
  * @param {HTMLElement} htmlElementDOMResult
  * @param {string} filterType
  * @param {Array} recipeArr
  */
-export const handleSelectResult = (
+export const handleSelect = (
   event,
   htmlElementDOMResult,
   filterType,
   recipeArr
 ) => {
   const selectIcon = event.target.lastElementChild;
+  const selectFilterUL = htmlElementDOMResult.querySelector("ul");
 
   rotateHtmlElement(selectIcon);
 
   if (htmlElementDOMResult.classList.contains("d-none")) {
-    selectFilterFactory(filterType, recipeArr);
+    htmlElementDOMResult.classList.remove("d-none");
+    selectFilterFactory(htmlElementDOMResult, filterType, recipeArr);
   } else {
+    selectFilterUL.remove();
     htmlElementDOMResult.classList.add("d-none");
   }
 };
 
 /**
- * Charge les resulats du select Filter
+ * Charge les resulats du Select recherche avancée
  * @param {string} filterType
  * @param {Array} recipeArr
  */
-export const selectFilterFactory = (filterType, recipeArr) => {
+export const selectFilterFactory = (
+  htmlElementDOMResult,
+  filterType,
+  recipeArr
+) => {
+  const selectFilterUL = document.createElement("ul");
+
+  console.log(recipeArr);
+
   //Scénario alternatif A3
   switch (filterType) {
     case "ingredients":
-      const ingredientResult = document.querySelector("#ingredient-result");
-      const ingredientOptions = document.querySelectorAll(".ingredient-option");
-
-      if (recipeArr.length < totalRecipes.length) {
-        removeHtmlElement(ingredientOptions);
-      }
-
-      ingredientResult.classList.remove("d-none");
       recipeArr.map((recipe) => {
         recipe.ingredients.map((ingredient) => {
-          const ingredientOption = document.createElement("p");
-          ingredientOption.style.cursor = "pointer";
-          ingredientOption.className = "ingredient-option";
-          ingredientOption.textContent += ingredient.ingredient;
-          ingredientResult.append(ingredientOption);
+          const selectLI = document.createElement("li");
+          const selectOption = document.createElement("a");
+
+          selectLI.classList.add("select-option", "p-3");
+          selectOption.textContent += ingredient.ingredient;
+
+          selectLI.append(selectOption);
+          selectFilterUL.append(selectLI);
+          htmlElementDOMResult.append(selectFilterUL);
         });
       });
       break;
+
     case "appareils":
-      const appareilResult = document.querySelector("#appareil-result");
-      const appareilOptions = document.querySelectorAll(".appareil-option");
-
-      if (recipeArr.length < totalRecipes.length) {
-        removeHtmlElement(appareilOptions);
-      }
-
-      appareilResult.classList.remove("d-none");
-
       recipeArr.map((recipe) => {
-        const appareilOption = document.createElement("p");
-        appareilOption.style.cursor = "pointer";
-        appareilOption.className = "appareil-option";
-        appareilOption.textContent = recipe.appliance;
-        appareilResult.append(appareilOption);
+        const selectLI = document.createElement("li");
+        const selectOption = document.createElement("a");
+
+        selectLI.classList.add("select-option", "p-3");
+        selectOption.textContent = recipe.appliance;
+
+        selectLI.append(selectOption);
+        selectFilterUL.append(selectLI);
+        htmlElementDOMResult.append(selectFilterUL);
       });
       break;
 
     case "ustensiles":
-      const ustensileResult = document.querySelector("#ustensile-result");
-      const ustensileOptions = document.querySelectorAll(".ustensile-option");
-
-      if (recipeArr.length < totalRecipes.length) {
-        removeHtmlElement(ustensileOptions);
-      }
-
-      ustensileResult.classList.remove("d-none");
       recipeArr.map((recipe) => {
         recipe.ustensils.map((ustensil) => {
-          const ustensilOption = document.createElement("p");
-          ustensilOption.style.cursor = "pointer";
-          ustensilOption.className = "appareil-option";
-          ustensilOption.textContent += ustensil;
-          ustensileResult.append(ustensilOption);
+          const selectLI = document.createElement("li");
+          const selectOption = document.createElement("a");
+
+          selectLI.classList.add("select-option", "p-3");
+          selectOption.textContent += ustensil;
+
+          selectLI.append(selectOption);
+          selectFilterUL.append(selectLI);
+          htmlElementDOMResult.append(selectFilterUL);
         });
       });
       break;
   }
+
+  const selectsLI = document.querySelectorAll(".select-option");
+
+  selectsLI.forEach((selectLI) => {
+    selectLI.addEventListener("click", (ev) => {
+      ev.preventDefault();
+      if (selectFilterUL) {
+        selectFilterUL.remove();
+      }
+      htmlElementDOMResult.classList.add("d-none");
+      handleSelectOption(selectLI);
+    });
+  });
+
+  const handleSelectOption = (selectedLI) => {
+    createBadgeFilter(selectedLI);
+  };
 };

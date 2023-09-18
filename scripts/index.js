@@ -1,10 +1,9 @@
 import { totalRecipes } from "../../data/recipes.js";
 import { cardRecipeFactory } from "./UI/card-recipe-factory-ui.js";
+import { handleSelect } from "./UI/select-filter-ui.js";
 import { removeHtmlElement } from "./utils/removeHtmlElement.js";
 
 onload = () => {
-  console.log(totalRecipes);
-
   const searchInput = document.querySelector("#search-input");
   const btnSubmitSearchForm = document.querySelector("#search-form-btn-submit");
   const totalRecipesDom = document.querySelector("#recipes-numbers");
@@ -22,8 +21,7 @@ onload = () => {
   searchInput.addEventListener("keyup", () => {
     if (searchInput.value.length < 3) {
       displayResult(totalRecipes);
-    }
-    if (searchInput.value.length >= 3) {
+    } else {
       const recipeArr = getRecipes(searchInput.value);
       displayResult(recipeArr);
     }
@@ -40,6 +38,11 @@ onload = () => {
     const mainDom = document.querySelector("main");
     const resultsDom = document.querySelector("#recipe-result-search");
     const recipeCards = document.getElementsByClassName("recipe-card");
+    const ingredientSelectBox = document.querySelector(
+      "#ingredient-select-box"
+    );
+    const appareilSelectBox = document.querySelector("#appareil-select-box");
+    const ustensileSelectBox = document.querySelector("#ustensile-select-box");
 
     if (recipeArr.length < totalRecipes.length) {
       removeHtmlElement(recipeCards);
@@ -72,6 +75,25 @@ onload = () => {
         searchInput.value = "";
         btnResetHeaderSearchForm.classList.add("d-none");
         displayResult(totalRecipes);
+      });
+
+      ingredientSelectBox.addEventListener("click", (ev) => {
+        ev.preventDefault();
+        const ingredientResultDOM =
+          document.querySelector("#ingredient-result");
+        handleSelect(ev, ingredientResultDOM, "ingredients", recipeArr);
+      });
+
+      appareilSelectBox.addEventListener("click", (ev) => {
+        ev.preventDefault();
+        const appareilResultDOM = document.querySelector("#appareil-result");
+        handleSelect(ev, appareilResultDOM, "appareils", recipeArr);
+      });
+
+      ustensileSelectBox.addEventListener("click", (ev) => {
+        ev.preventDefault();
+        const ustensileResultDOM = document.querySelector("#ustensile-result");
+        handleSelect(ev, ustensileResultDOM, "ustensiles", recipeArr);
       });
     }
   };
