@@ -40,8 +40,6 @@ export const selectFilterFactory = (
 ) => {
   const selectFilterUL = document.createElement("ul");
 
-  console.log(recipeArr);
-
   //Scénario alternatif A3
   switch (filterType) {
     case "ingredients":

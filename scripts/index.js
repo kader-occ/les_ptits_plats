@@ -4,6 +4,8 @@ import { handleSelect } from "./UI/select-filter-ui.js";
 import { removeHtmlElement } from "./utils/removeHtmlElement.js";
 
 onload = () => {
+  console.log(totalRecipes);
+
   const searchInput = document.querySelector("#search-input");
   const btnSubmitSearchForm = document.querySelector("#search-form-btn-submit");
   const totalRecipesDom = document.querySelector("#recipes-numbers");
