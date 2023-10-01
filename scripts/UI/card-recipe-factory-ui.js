@@ -1,3 +1,5 @@
+import { toCapitalize } from "../utils/toCapitalize.js";
+
 //Card factory
 export const cardRecipeFactory = (recipe) => {
   const recipeCard = document.createElement("article");
@@ -62,7 +64,7 @@ export const cardRecipeFactory = (recipe) => {
       quantityDom.textContent = ingredient.quantity;
     }
 
-    ingredientDom.textContent = ingredient.ingredient;
+    ingredientDom.textContent = toCapitalize(ingredient.ingredient);
 
     col6.append(ingredientDom);
     col6.append(quantityDom);

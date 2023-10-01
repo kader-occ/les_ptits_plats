@@ -10,6 +10,5 @@ export const rotateHtmlElement = (htmlElement) => {
   if (deg === 360) {
     count = 0;
   }
-  console.log(count);
   htmlElement.style.transform = "rotate(" + deg + "deg)";
 };

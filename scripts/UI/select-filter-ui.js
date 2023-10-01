@@ -1,43 +1,40 @@
-import { rotateHtmlElement } from "../utils/rotateHtmlElement.js";
+import { rotateHtmlElement } from "../utils/rotate-html-element.js";
+import { toCapitalize } from "../utils/toCapitalize.js";
 import { createBadgeFilter } from "./badge-filter-ui.js";
+import { filterRecipesByKeywords } from "./filter-recipes.js";
+import { displayResult } from "./display-result.js";
+import { removeDuplicate } from "../utils/remove-duplicate.js";
 
 /**
  * Gestion Select recherche avancée
  * @param {event} event
- * @param {HTMLElement} htmlElementDOMResult
+ * @param {HTMLElement} selectDOMResult
  * @param {string} filterType
  * @param {Array} recipeArr
  */
-export const handleSelect = (
-  event,
-  htmlElementDOMResult,
-  filterType,
-  recipeArr
-) => {
+export const handleSelect = (event, selectDOMResult, filterType, recipeArr) => {
   const selectIcon = event.target.lastElementChild;
-  const selectFilterUL = htmlElementDOMResult.querySelector("ul");
+  const selectFilterUL = selectDOMResult.querySelector("ul");
 
   rotateHtmlElement(selectIcon);
 
-  if (htmlElementDOMResult.classList.contains("d-none")) {
-    htmlElementDOMResult.classList.remove("d-none");
-    selectFilterFactory(htmlElementDOMResult, filterType, recipeArr);
+  if (selectDOMResult.classList.contains("d-none")) {
+    selectDOMResult.classList.remove("d-none");
+    selectFilterFactory(selectDOMResult, filterType, recipeArr);
   } else {
-    selectFilterUL.remove();
-    htmlElementDOMResult.classList.add("d-none");
+    if (selectFilterUL) {
+      selectFilterUL.remove();
+      selectDOMResult.classList.add("d-none");
+    }
   }
 };
 
 /**
- * Charge les resulats du Select recherche avancée
+ * Factory Select recherche avancée
  * @param {string} filterType
  * @param {Array} recipeArr
  */
-export const selectFilterFactory = (
-  htmlElementDOMResult,
-  filterType,
-  recipeArr
-) => {
+export const selectFilterFactory = (selectDOMResult, filterType, recipeArr) => {
   const selectFilterUL = document.createElement("ul");
 
   //Scénario alternatif A3
@@ -46,29 +43,24 @@ export const selectFilterFactory = (
       recipeArr.map((recipe) => {
         recipe.ingredients.map((ingredient) => {
           const selectLI = document.createElement("li");
-          const selectOption = document.createElement("a");
-
           selectLI.classList.add("select-option", "p-3");
-          selectOption.textContent += ingredient.ingredient;
+          selectLI.textContent += toCapitalize(ingredient.ingredient);
 
-          selectLI.append(selectOption);
           selectFilterUL.append(selectLI);
-          htmlElementDOMResult.append(selectFilterUL);
+          selectDOMResult.append(selectFilterUL);
         });
       });
+
       break;
 
     case "appareils":
       recipeArr.map((recipe) => {
         const selectLI = document.createElement("li");
-        const selectOption = document.createElement("a");
-
         selectLI.classList.add("select-option", "p-3");
-        selectOption.textContent = recipe.appliance;
+        selectLI.textContent = toCapitalize(recipe.appliance);
 
-        selectLI.append(selectOption);
         selectFilterUL.append(selectLI);
-        htmlElementDOMResult.append(selectFilterUL);
+        selectDOMResult.append(selectFilterUL);
       });
       break;
 
@@ -76,14 +68,11 @@ export const selectFilterFactory = (
       recipeArr.map((recipe) => {
         recipe.ustensils.map((ustensil) => {
           const selectLI = document.createElement("li");
-          const selectOption = document.createElement("a");
-
           selectLI.classList.add("select-option", "p-3");
-          selectOption.textContent += ustensil;
+          selectLI.textContent += toCapitalize(ustensil);
 
-          selectLI.append(selectOption);
           selectFilterUL.append(selectLI);
-          htmlElementDOMResult.append(selectFilterUL);
+          selectDOMResult.append(selectFilterUL);
         });
       });
       break;
@@ -91,13 +80,17 @@ export const selectFilterFactory = (
 
   const selectsLI = document.querySelectorAll(".select-option");
 
+  removeDuplicate(selectsLI);
+
   selectsLI.forEach((selectLI) => {
     selectLI.addEventListener("click", (ev) => {
       ev.preventDefault();
       if (selectFilterUL) {
         selectFilterUL.remove();
       }
-      htmlElementDOMResult.classList.add("d-none");
+      const recipeArr = filterRecipesByKeywords(selectLI.textContent);
+      displayResult(recipeArr);
+      selectDOMResult.classList.add("d-none");
       handleSelectOption(selectLI);
     });
   });

@@ -4,7 +4,9 @@ export const createBadgeFilter = (selectedLI) => {
   const filtersDOM = document.querySelector("#filters");
   const badgeFilterIconClose = document.createElement("i");
 
-  badgeFilterIconClose.classList.add("bi", "bi-x", "float-right");
+  console.log(selectedLI);
+
+  badgeFilterIconClose.classList.add("bi", "bi-x");
 
   selectedLI.append(badgeFilterIconClose);
 
@@ -22,14 +24,7 @@ export const createBadgeFilter = (selectedLI) => {
     badgeFilterUL = document.querySelector("#badge-filter-ul");
   }
 
-  selectedLI.classList.add(
-    "col-2",
-    "badge",
-    "text-left",
-    "text-black",
-    "mx-1",
-    "my-1"
-  );
+  selectedLI.classList.add("col-2", "badge", "text-black", "mx-1", "my-1");
 
   badgeFilterDiv.append(badgeFilterUL);
   badgeFilterUL.append(selectedLI);
