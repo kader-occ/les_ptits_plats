@@ -1,5 +1,5 @@
 import { rotateHtmlElement } from "../utils/rotate-html-element.js";
-import { toCapitalize } from "../utils/toCapitalize.js";
+import { toCapitalize } from "../utils/to-capitalize.js";
 import { createBadgeFilter } from "./badge-filter-ui.js";
 import { filterRecipesByKeywords } from "./filter-recipes.js";
 import { displayResult } from "./display-result.js";
@@ -50,7 +50,6 @@ export const selectFilterFactory = (selectDOMResult, filterType, recipeArr) => {
           selectDOMResult.append(selectFilterUL);
         });
       });
-
       break;
 
     case "appareils":

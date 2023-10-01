@@ -1,4 +1,4 @@
-import { toCapitalize } from "../utils/toCapitalize.js";
+import { toCapitalize } from "../utils/to-capitalize.js";
 
 //Card factory
 export const cardRecipeFactory = (recipe) => {

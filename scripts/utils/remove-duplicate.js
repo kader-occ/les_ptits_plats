@@ -1,6 +1,10 @@
-let newArr = [];
+import { toCapitalize } from "./to-capitalize.js";
+
+const options = [];
 
 export const removeDuplicate = (arr) => {
-  newArr.push(arr);
-  console.log(newArr);
+  arr.forEach((option) => {
+    if (options.includes(toCapitalize(option.textContent))) option.remove();
+    else options.push(toCapitalize(option.textContent));
+  });
 };
