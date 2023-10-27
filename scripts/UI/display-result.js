@@ -5,6 +5,8 @@ import { noResult } from "./no-result.js";
 import { selectIngredientFactory } from "./select-ingredient-factory.js";
 import { selectAppareilFactory } from "./select-appareil-factory.js";
 import { selectUstensileFactory } from "./select-ustensile-factory.js";
+import { rotateHtmlElement } from "../utils/rotate-html-element.js";
+import { handleSelectFilterData } from "./select-filter-data.js";
 
 /**
  * Fonction qui affiche le resultat de la recherche

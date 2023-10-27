@@ -2,6 +2,7 @@ import { toCapitalize } from "../utils/to-capitalize.js";
 import { filterRecipesByKeywords } from "./filter-recipes.js";
 import { displayResult } from "./display-result.js";
 import { removeDuplicate } from "../utils/remove-duplicate.js";
+import { badgeFilterFactory } from "./badge-filter-factory.js";
 
 /**
  * Gestion Select
@@ -11,7 +12,7 @@ import { removeDuplicate } from "../utils/remove-duplicate.js";
 export const handleSelectFilterData = (recipeArr, selectType) => {
   switch (selectType) {
     case "ingredients":
-      const ingredientResult = document.getElementById("ingredient-result");
+      const ingredientResult = document.querySelector("#ingredient-result");
       const selectIngredientFilterUL = document.getElementById(
         "select-filter-ingredient-ul"
       );
@@ -23,12 +24,9 @@ export const handleSelectFilterData = (recipeArr, selectType) => {
           selectLI.textContent += toCapitalize(ingredient.ingredient);
           selectIngredientFilterUL.append(selectLI);
           ingredientResult.append(selectIngredientFilterUL);
-          selectLI.addEventListener("click", () => {
-            recipeArr = filterRecipesByKeywords(ingredient.ingredient);
-            displayResult(recipeArr);
-          });
         });
       });
+      handleLIEvent(ingredientResult);
       break;
 
     case "appareils":
@@ -43,11 +41,8 @@ export const handleSelectFilterData = (recipeArr, selectType) => {
         selectLI.textContent = toCapitalize(recipe.appliance);
         selectAppareilFilterUL.append(selectLI);
         appareilResult.append(selectAppareilFilterUL);
-        selectLI.addEventListener("click", () => {
-          recipeArr = filterRecipesByKeywords(recipe.appliance);
-          displayResult(recipeArr);
-        });
       });
+      handleLIEvent(appareilResult);
       break;
 
     case "ustensiles":
@@ -63,14 +58,24 @@ export const handleSelectFilterData = (recipeArr, selectType) => {
           selectLI.textContent = toCapitalize(ustensil);
           selectUstensileFilterUL.append(selectLI);
           ustensileResult.append(selectUstensileFilterUL);
-          selectLI.addEventListener("click", () => {
-            recipeArr = filterRecipesByKeywords(ustensil);
-            displayResult(recipeArr);
-          });
         });
       });
+      handleLIEvent(ustensileResult);
       break;
   }
   const selectOptions = document.querySelectorAll(".select-option");
   removeDuplicate(selectOptions);
+};
+
+const handleLIEvent = (resultDOM) => {
+  const selectOptions = document.querySelectorAll(".select-option");
+
+  selectOptions.forEach((option) => {
+    option.addEventListener("click", () => {
+      const recipeArr = filterRecipesByKeywords(option.textContent);
+      displayResult(recipeArr);
+      badgeFilterFactory(option.textContent);
+      resultDOM.classList.add("d-none");
+    });
+  });
 };

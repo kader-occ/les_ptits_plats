@@ -2,7 +2,7 @@ import { rotateHtmlElement } from "../utils/rotate-html-element.js";
 import { handleSelectFilterData } from "./select-filter-data.js";
 
 export const selectUstensileFactory = (recipeArr) => {
-  const selectIcon = document.querySelector(".select-icon");
+  const selectIcon = document.querySelector("#select-ustensile-chevron-icon");
   rotateHtmlElement(selectIcon);
 
   const ustensileSelectBox = document.querySelector("#ustensile-select-box");
@@ -40,7 +40,6 @@ export const selectUstensileFactory = (recipeArr) => {
     ustensileResult.append(ustensileSearchForm);
     ustensileResult.append(selectFilterUL);
     ustensileSelectBox.append(ustensileResult);
-
     handleSelectFilterData(recipeArr, "ustensiles");
   }
 };

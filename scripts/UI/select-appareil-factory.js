@@ -2,7 +2,7 @@ import { rotateHtmlElement } from "../utils/rotate-html-element.js";
 import { handleSelectFilterData } from "./select-filter-data.js";
 
 export const selectAppareilFactory = (recipeArr) => {
-  const selectIcon = document.querySelector(".select-icon");
+  const selectIcon = document.querySelector("#select-appareil-chevron-icon");
   rotateHtmlElement(selectIcon);
 
   const appareilSelectBox = document.querySelector("#appareil-select-box");
@@ -40,7 +40,6 @@ export const selectAppareilFactory = (recipeArr) => {
     appareilResult.append(appareilSearchForm);
     appareilResult.append(selectFilterUL);
     appareilSelectBox.append(appareilResult);
-
     handleSelectFilterData(recipeArr, "appareils");
   }
 };
