@@ -3,8 +3,6 @@ import { displayResult } from "./UI/display-result.js";
 import { filterRecipesByKeywords } from "./UI/filter-recipes.js";
 
 onload = () => {
-  console.log(totalRecipes);
-
   // Charge toutes les recettes
   displayResult(totalRecipes);
 

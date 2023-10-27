@@ -2,7 +2,9 @@ import { totalRecipes } from "../../data/recipes.js";
 import { cardRecipeFactory } from "./card-recipe-factory-ui.js";
 import { removeHtmlElement } from "../utils/remove-html-element.js";
 import { noResult } from "./no-result.js";
-import { handleSelect } from "./select-filter-ui.js";
+import { selectIngredientFactory } from "./select-ingredient-factory.js";
+import { selectAppareilFactory } from "./select-appareil-factory.js";
+import { selectUstensileFactory } from "./select-ustensile-factory.js";
 
 /**
  * Fonction qui affiche le resultat de la recherche
@@ -18,9 +20,6 @@ export const displayResult = (recipeArr) => {
   const noResultDom = document.querySelector("#no-results");
   const resultsDom = document.querySelector("#recipe-result-search");
   const recipeCards = document.getElementsByClassName("recipe-card");
-  const ingredientSelectBox = document.querySelector("#ingredient-select-box");
-  const appareilSelectBox = document.querySelector("#appareil-select-box");
-  const ustensileSelectBox = document.querySelector("#ustensile-select-box");
 
   totalRecipesDom.textContent = recipeArr.length;
 
@@ -47,19 +46,22 @@ export const displayResult = (recipeArr) => {
       location.reload();
     });
 
-    ingredientSelectBox.addEventListener("click", (ev) => {
-      const ingredientResultDOM = document.querySelector("#ingredient-result");
-      handleSelect(ev, ingredientResultDOM, "ingredients", recipeArr);
+    const ingredientSelectBox = document.querySelector(
+      "#ingredient-select-box"
+    );
+    const appareilSelectBox = document.querySelector("#appareil-select-box");
+    const ustensileSelectBox = document.querySelector("#ustensile-select-box");
+
+    ingredientSelectBox.addEventListener("click", () => {
+      selectIngredientFactory(recipeArr);
     });
 
-    appareilSelectBox.addEventListener("click", (ev) => {
-      const appareilResultDOM = document.querySelector("#appareil-result");
-      handleSelect(ev, appareilResultDOM, "appareils", recipeArr);
+    appareilSelectBox.addEventListener("click", () => {
+      selectAppareilFactory(recipeArr);
     });
 
-    ustensileSelectBox.addEventListener("click", (ev) => {
-      const ustensileResultDOM = document.querySelector("#ustensile-result");
-      handleSelect(ev, ustensileResultDOM, "ustensiles", recipeArr);
+    ustensileSelectBox.addEventListener("click", () => {
+      selectUstensileFactory(recipeArr);
     });
   }
 };

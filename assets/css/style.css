@@ -120,10 +120,15 @@ main #filters .select-box .select-option {
 }
 
 main #filters .select-box .select-option:hover,
-#badge-filter-ul .select-option {
+#badge-filter-ul .badge-li {
   background-color: var(--yellow);
   text-align: left;
   font-weight: 100;
+}
+
+main #filters #badge-filter-ul .btn-close-badge-filter {
+  float: right;
+  font-size: 18px;
 }
 
 main #filters #total-recipes {
