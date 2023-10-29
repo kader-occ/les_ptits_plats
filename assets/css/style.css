@@ -99,11 +99,6 @@ main #filters .select-box {
   margin-right: 60px;
 }
 
-main #filters .select-box span,
-main #filters .select-box i {
-  pointer-events: none;
-}
-
 main #filters .select-box .icon-search-filter {
   margin-left: -20px;
 }

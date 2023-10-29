@@ -1,5 +1,3 @@
-let count = 0;
-
 /**
  * Badge Factory
  * @param {string} selectedLIText
@@ -12,41 +10,41 @@ export const badgeFilterFactory = (selectedLIText) => {
   let badgeFilterDiv;
   let badgeFilterUL;
 
-  if (count < 1) {
-    badgeSelectLI = document.createElement("li");
-    badgeSelectLI.textContent = selectedLIText;
-    badgeFilterIconClose = document.createElement("i");
-    badgeFilterIconClose.classList.add("bi", "bi-x", "btn-close-badge-filter");
+  if (!document.contains(document.getElementById("badge-filter"))) {
     badgeFilterDiv = document.createElement("div");
     badgeFilterUL = document.createElement("ul");
     badgeFilterDiv.id = "badge-filter";
     badgeFilterDiv.classList.add("row", "mt-5");
     badgeFilterUL.id = "badge-filter-ul";
+    badgeFilterDiv.append(badgeFilterUL);
+    filtersDOM.append(badgeFilterDiv);
   } else {
-    badgeSelectLI = document.querySelector(".badge-li");
-    badgeFilterIconClose = document.querySelector(".btn-close-badge-filter");
-    badgeFilterDiv = document.querySelector("#badge-filter");
     badgeFilterUL = document.querySelector("#badge-filter-ul");
   }
+
+  badgeSelectLI = document.createElement("li");
+  badgeFilterIconClose = document.createElement("i");
+
+  badgeSelectLI.textContent = selectedLIText;
 
   badgeSelectLI.classList.add(
     "col-2",
     "badge",
     "text-black",
     "p-3",
-    "badge-li"
+    "badge-li",
+    "mx-2"
   );
-  badgeFilterDiv.append(badgeFilterUL);
+
+  badgeFilterIconClose.classList.add("bi", "bi-x", "btn-close-badge-filter");
+
   badgeSelectLI.append(badgeFilterIconClose);
   badgeFilterUL.append(badgeSelectLI);
-  filtersDOM.append(badgeFilterDiv);
 
   badgeFilterIconClose.addEventListener("click", (ev) => {
     ev.preventDefault();
     badgeFilterIconCloseEvent(ev, badgeSelectLI.textContent);
   });
-
-  count++;
 };
 
 const badgeFilterIconCloseEvent = (ev, badgeFilter) => {

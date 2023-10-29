@@ -5,14 +5,12 @@ import { noResult } from "./no-result.js";
 import { selectIngredientFactory } from "./select-ingredient-factory.js";
 import { selectAppareilFactory } from "./select-appareil-factory.js";
 import { selectUstensileFactory } from "./select-ustensile-factory.js";
-import { rotateHtmlElement } from "../utils/rotate-html-element.js";
-import { handleSelectFilterData } from "./select-filter-data.js";
 
 /**
  * Fonction qui affiche le resultat de la recherche
  * @param {Array} recipeArr
  */
-export const displayResult = (recipeArr) => {
+export const displayResult = () => {
   const searchInput = document.querySelector("#search-input");
   const btnResetHeaderSearchForm = document.querySelector(
     "#btn-reset-header-search-form"
@@ -22,6 +20,8 @@ export const displayResult = (recipeArr) => {
   const noResultDom = document.querySelector("#no-results");
   const resultsDom = document.querySelector("#recipe-result-search");
   const recipeCards = document.getElementsByClassName("recipe-card");
+
+  const recipeArr = JSON.parse(localStorage.getItem("_recipeResults"));
 
   totalRecipesDom.textContent = recipeArr.length;
 
@@ -46,24 +46,6 @@ export const displayResult = (recipeArr) => {
 
     btnResetHeaderSearchForm.addEventListener("click", () => {
       location.reload();
-    });
-
-    const ingredientSelectBox = document.querySelector(
-      "#ingredient-select-box"
-    );
-    const appareilSelectBox = document.querySelector("#appareil-select-box");
-    const ustensileSelectBox = document.querySelector("#ustensile-select-box");
-
-    ingredientSelectBox.addEventListener("click", () => {
-      selectIngredientFactory(recipeArr);
-    });
-
-    appareilSelectBox.addEventListener("click", () => {
-      selectAppareilFactory(recipeArr);
-    });
-
-    ustensileSelectBox.addEventListener("click", () => {
-      selectUstensileFactory(recipeArr);
     });
   }
 };
