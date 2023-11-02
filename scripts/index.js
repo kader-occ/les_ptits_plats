@@ -6,9 +6,8 @@ import { selectIngredientFactory } from "./UI/select-ingredient-factory.js";
 import { selectUstensileFactory } from "./UI/select-ustensile-factory.js";
 
 onload = () => {
-  localStorage.removeItem("_recipeResults");
-
   localStorage.setItem("_recipeResults", JSON.stringify(totalRecipes));
+  localStorage.removeItem("_tags");
 
   const searchInput = document.querySelector("#search-input");
   const btnSubmitSearchForm = document.querySelector("#search-form-btn-submit");
@@ -23,9 +22,8 @@ onload = () => {
     ev.preventDefault();
   });
 
-  searchInput.addEventListener("keyup", (ev) => {
+  searchInput.addEventListener("keyup", () => {
     if (searchInput.value.length >= 3) {
-      ev.stopImmediatePropagation();
       const recipeArr = filterRecipesByKeywords(searchInput.value);
       localStorage.setItem("_recipeResults", JSON.stringify(recipeArr));
       displayResult();
@@ -54,18 +52,15 @@ export const loadSelect = () => {
     document.getElementById("ingredient-result").remove();
   }
 
-  ingredientSelectBoxLink.addEventListener("click", (ev) => {
-    ev.stopPropagation();
+  ingredientSelectBoxLink.addEventListener("click", () => {
     selectIngredientFactory();
   });
 
-  appareilSelectBoxLink.addEventListener("click", (ev) => {
-    ev.stopPropagation();
+  appareilSelectBoxLink.addEventListener("click", () => {
     selectAppareilFactory();
   });
 
-  ustensileSelectBoxLink.addEventListener("click", (ev) => {
-    ev.stopPropagation();
+  ustensileSelectBoxLink.addEventListener("click", () => {
     selectUstensileFactory();
   });
 };

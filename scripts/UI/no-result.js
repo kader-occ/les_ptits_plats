@@ -5,6 +5,6 @@ export const noResult = (searchKeywords) => {
   noResultDom.id = "no-results";
   noResultDom.className = "my-5 text-center";
   noResultDom.textContent =
-    "Aucune recette contient " + searchKeywords + "ou les tags selectionnés";
+    "Aucune recette contient " + searchKeywords + " ou les tags selectionnés";
   mainDom.append(noResultDom);
 };

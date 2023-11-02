@@ -1,9 +1,19 @@
+import { totalRecipes } from "../../data/recipes.js";
+import { loadSelect } from "../index.js";
+import { displayResult } from "./display-result.js";
+import { handleRecipesByTag } from "./filter-recipes.js";
+
+let tagArr = [];
+
 /**
- * Badge Factory
- * @param {string} selectedLIText
+ * Tag badge Factory
+ * @param {string} selectedLinkTag
  */
-export const badgeFilterFactory = (selectedLIText) => {
+export const tagFilterFactory = (selectedLinkTag) => {
   const filtersDOM = document.querySelector("#filters");
+
+  tagArr.push(selectedLinkTag);
+  localStorage.setItem("_tags", JSON.stringify(tagArr));
 
   let badgeSelectLI;
   let badgeFilterIconClose;
@@ -25,7 +35,7 @@ export const badgeFilterFactory = (selectedLIText) => {
   badgeSelectLI = document.createElement("li");
   badgeFilterIconClose = document.createElement("i");
 
-  badgeSelectLI.textContent = selectedLIText;
+  badgeSelectLI.textContent = selectedLinkTag;
 
   badgeSelectLI.classList.add(
     "col-2",
@@ -43,11 +53,23 @@ export const badgeFilterFactory = (selectedLIText) => {
 
   badgeFilterIconClose.addEventListener("click", (ev) => {
     ev.preventDefault();
-    badgeFilterIconCloseEvent(ev, badgeSelectLI.textContent);
+    badgeFilterIconCloseEvent(badgeSelectLI);
   });
 };
 
-const badgeFilterIconCloseEvent = (ev, badgeFilter) => {
-  console.log(ev, badgeFilter);
-  //displayResult(totalRecipes);
+const badgeFilterIconCloseEvent = (badgeSelectLI) => {
+  let tagArr = JSON.parse(localStorage.getItem("_tags"));
+  tagArr.splice(tagArr.indexOf(badgeSelectLI.textContent), 1);
+
+  localStorage.setItem("_tags", JSON.stringify(tagArr));
+  badgeSelectLI.remove();
+
+  if (tagArr.length < 1) {
+    location.reload();
+  } else {
+    const recipeArr = handleRecipesByTag();
+    localStorage.setItem("_recipeResults", JSON.stringify(recipeArr[0]));
+    displayResult();
+    loadSelect();
+  }
 };

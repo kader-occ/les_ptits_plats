@@ -2,9 +2,6 @@ import { totalRecipes } from "../../data/recipes.js";
 import { cardRecipeFactory } from "./card-recipe-factory-ui.js";
 import { removeHtmlElement } from "../utils/remove-html-element.js";
 import { noResult } from "./no-result.js";
-import { selectIngredientFactory } from "./select-ingredient-factory.js";
-import { selectAppareilFactory } from "./select-appareil-factory.js";
-import { selectUstensileFactory } from "./select-ustensile-factory.js";
 
 /**
  * Fonction qui affiche le resultat de la recherche

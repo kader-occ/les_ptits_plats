@@ -1,9 +1,10 @@
+import { totalRecipes } from "../../data/recipes.js";
 import { removeDuplicate } from "../utils/remove-duplicate.js";
 import { rotateHtmlElement } from "../utils/rotate-html-element.js";
 import { toCapitalize } from "../utils/to-capitalize.js";
-import { badgeFilterFactory } from "./badge-filter-factory.js";
 import { displayResult } from "./display-result.js";
-import { filterRecipesByKeywords } from "./filter-recipes.js";
+import { filterRecipesByAppareil } from "./filter-recipes.js";
+import { tagFilterFactory } from "./tag-filter-factory.js";
 
 export const selectAppareilFactory = () => {
   const selectIcon = document.querySelector("#appareil-select-chevron-icon");
@@ -35,11 +36,6 @@ export const selectAppareilFactory = () => {
     appareilSearchInput.id = "appareil-search-input";
     appareilSearchInput.classList.add("form-control", "my-3");
 
-    appareilSearchInput.addEventListener("keyup", (ev) => {
-      ev.preventDefault();
-      handleSelectAppareilInputSearch(ev);
-    });
-
     appareilSearchFormIcon.classList.add(
       "bi",
       "bi-search",
@@ -52,41 +48,56 @@ export const selectAppareilFactory = () => {
     appareilResult.append(selectFilterUL);
     appareilSelectBox.append(appareilResult);
 
-    let recipeArr = JSON.parse(localStorage.getItem("_recipeResults"));
-
-    //Scénario alternatif A3
-    recipeArr.map((recipe) => {
-      const selectLI = document.createElement("li");
-      const selectLink = document.createElement("a");
-
-      selectLI.classList.add("select-option", "p-3");
-      selectLink.id = "select-link";
-
-      selectLink.textContent = toCapitalize(recipe.appliance);
-
-      selectLI.append(selectLink);
-      selectFilterUL.append(selectLI);
-      appareilResult.append(selectFilterUL);
-
-      selectLink.addEventListener("click", (ev) => {
-        ev.stopImmediatePropagation();
-        badgeFilterFactory(toCapitalize(recipe.appliance));
-        recipeArr = filterRecipesByKeywords(recipe.appliance);
+    appareilSearchInput.addEventListener("keyup", (ev) => {
+      ev.preventDefault();
+      if (ev.target.value.length > 3) {
+        const recipeArr = filterRecipesByAppareil(ev.target.value);
         localStorage.setItem("_recipeResults", JSON.stringify(recipeArr));
-        displayResult(recipeArr);
-        selectAppareilFactory();
-      });
+        displayResult();
+        loadSelectData();
+      } else {
+        localStorage.setItem("_recipeResults", JSON.stringify(totalRecipes));
+        displayResult();
+        loadSelectData();
+      }
     });
+    loadSelectData();
+    displayResult();
   }
-  const selectOptions = document.querySelectorAll(".select-option");
-  removeDuplicate(selectOptions);
 };
 
-const handleSelectAppareilInputSearch = (ev) => {
-  if (ev.target.value.length >= 3) {
-    let recipeArr = filterRecipesByKeywords(ev.target.value);
-    localStorage.setItem("_recipeResults", JSON.stringify(recipeArr));
-    displayResult();
-    selectAppareilFactory();
+const loadSelectData = () => {
+  const appareilResult = document.querySelector("#appareil-result");
+  const selectFilterUL = document.querySelector("#select-filter-appareil-ul");
+
+  if (selectFilterUL) {
+    selectFilterUL.innerHTML = "";
   }
+
+  let recipeArr = JSON.parse(localStorage.getItem("_recipeResults"));
+
+  //Scénario alternatif A3
+  recipeArr.map((recipe) => {
+    const selectLI = document.createElement("li");
+    const selectLink = document.createElement("a");
+
+    selectLI.classList.add("select-option", "p-3");
+    selectLink.id = "select-link";
+
+    selectLink.textContent = toCapitalize(recipe.appliance);
+
+    selectLI.append(selectLink);
+    selectFilterUL.append(selectLI);
+    appareilResult.append(selectFilterUL);
+
+    selectLink.addEventListener("click", () => {
+      tagFilterFactory(toCapitalize(recipe.appliance));
+      recipeArr = filterRecipesByAppareil(recipe.appliance);
+      localStorage.setItem("_recipeResults", JSON.stringify(recipeArr));
+      displayResult();
+      selectAppareilFactory();
+    });
+  });
+  const selectOptions = document.querySelectorAll(".select-option");
+  removeDuplicate(selectOptions);
 };
