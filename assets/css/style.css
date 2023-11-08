@@ -90,7 +90,6 @@ main {
 main #filters .select-box {
   background: #fff;
   cursor: pointer;
-  padding: 14px;
   border: 1px solid #d9d7d7;
   border-radius: 6px;
   height: auto;
@@ -100,12 +99,31 @@ main #filters .select-box {
   margin-right: 60px;
 }
 
-main #filters .select-box span {
-  pointer-events: none;
-}
-
 main #filters .select-box .icon-search-filter {
   margin-left: -20px;
+}
+
+main #filters .select-box ul,
+#badge-filter-ul {
+  list-style: none;
+  padding: 0;
+}
+
+main #filters .select-box .select-option {
+  cursor: pointer;
+  margin: 0;
+}
+
+main #filters .select-box .select-option:hover,
+#badge-filter-ul .badge-li {
+  background-color: var(--yellow);
+  text-align: left;
+  font-weight: 100;
+}
+
+main #filters #badge-filter-ul .btn-close-badge-filter {
+  float: right;
+  font-size: 18px;
 }
 
 main #filters #total-recipes {
@@ -181,4 +199,13 @@ main #recipe-result-search .recipe-card .recipe-description,
 .ingredient {
   font-size: 14px;
   color: var(--black);
+}
+
+main #recipe-result-search .recipe-card .ingredient-quantity {
+  font-size: 14px;
+  color: var(--gray);
+}
+
+main #recipe-result-search .recipe-card #recipe-ingredient p {
+  margin: 0 !important;
 }

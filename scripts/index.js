@@ -1,13 +1,16 @@
 import { totalRecipes } from "../../data/recipes.js";
-import { cardRecipeFactory } from "./UI/card-recipe-factory-ui.js";
-import { removeHtmlElement } from "./utils/removeHtmlElement.js";
+import { displayRecipes } from "./UI/display-recipes.js";
+import { filterRecipesByKeywords } from "./UI/filter-recipes.js";
+import { selectAppareilFactory } from "./UI/select-appareil-factory.js";
+import { selectIngredientFactory } from "./UI/select-ingredient-factory.js";
+import { selectUstensileFactory } from "./UI/select-ustensile-factory.js";
 
 onload = () => {
-  console.log(totalRecipes);
+  localStorage.setItem("_recipeResults", JSON.stringify(totalRecipes));
+  localStorage.removeItem("_tags");
 
   const searchInput = document.querySelector("#search-input");
   const btnSubmitSearchForm = document.querySelector("#search-form-btn-submit");
-  const totalRecipesDom = document.querySelector("#recipes-numbers");
 
   searchInput.addEventListener("keypress", (ev) => {
     if (ev.keyCode === 13) {
@@ -20,9 +23,6 @@ onload = () => {
   });
 
   searchInput.addEventListener("keyup", () => {
-    if (searchInput.value.length < 3) {
-      displayResult(totalRecipes);
-    }
     if (searchInput.value.length >= 3) {
       const recipeArr = getRecipes(searchInput.value);
       displayResult(recipeArr);
@@ -34,16 +34,14 @@ onload = () => {
    * @param {Array} recipeArr
    */
   const displayResult = (recipeArr) => {
-    const btnResetHeaderSearchForm = document.querySelector(
-      "#btn-reset-header-search-form"
-    );
+    const btnResetSearchForm = document.querySelector("#btn-reset-search-form");
     const mainDom = document.querySelector("main");
     const resultsDom = document.querySelector("#recipe-result-search");
     const recipeCards = document.getElementsByClassName("recipe-card");
 
     if (recipeArr.length < totalRecipes.length) {
       removeHtmlElement(recipeCards);
-      btnResetHeaderSearchForm.classList.remove("d-none");
+      btnResetSearchForm.classList.remove("d-none");
     }
 
     totalRecipesDom.textContent = recipeArr.length;
@@ -67,44 +65,24 @@ onload = () => {
         mainDom.append(resultsDom);
       });
 
-      btnResetHeaderSearchForm.addEventListener("click", (ev) => {
+      btnResetSearchForm.addEventListener("click", (ev) => {
         ev.preventDefault();
         searchInput.value = "";
-        btnResetHeaderSearchForm.classList.add("d-none");
+        btnResetSearchForm.classList.add("d-none");
         displayResult(totalRecipes);
       });
     }
   };
 
-  //Version native recupere les recette(s) par tags
+  //Version fonctionnelle recupere les recette(s) par tags
   const getRecipes = (searchKeywords) => {
-    let recipeArr = [];
-    totalRecipes.forEach((recipe) => {
-      if (recipe.name.toLowerCase().includes(searchKeywords.toLowerCase())) {
-        if (!recipeArr.includes(recipe)) {
-          recipeArr.push(recipe);
-        }
-      }
-      recipe.ingredients.forEach((ingredient) => {
-        if (
-          ingredient.ingredient
-            .toLowerCase()
-            .includes(searchKeywords.toLowerCase())
-        ) {
-          if (!recipeArr.includes(recipe)) {
-            recipeArr.push(recipe);
-          }
-        }
-      });
-      if (
-        recipe.description.toLowerCase().includes(searchKeywords.toLowerCase())
-      ) {
-        if (!recipeArr.includes(recipe)) {
-          recipeArr.push(recipe);
-        }
-      }
+    return totalRecipes.filter((recipe) => {
+      return (
+        recipe.name.toLowerCase() === searchKeywords ||
+        recipe.ingredients.includes(searchKeywords) ||
+        recipe.description.includes(searchKeywords)
+      );
     });
-    return recipeArr;
   };
 
   displayResult(totalRecipes);
