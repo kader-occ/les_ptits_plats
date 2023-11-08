@@ -2,7 +2,7 @@ import { totalRecipes } from "../../data/recipes.js";
 import { removeDuplicate } from "../utils/remove-duplicate.js";
 import { rotateHtmlElement } from "../utils/rotate-html-element.js";
 import { toCapitalize } from "../utils/to-capitalize.js";
-import { displayResult } from "./display-result.js";
+import { displayRecipes } from "./display-recipes.js";
 import { filterRecipesByUstensile } from "./filter-recipes.js";
 import { tagFilterFactory } from "./tag-filter-factory.js";
 
@@ -51,18 +51,18 @@ export const selectUstensileFactory = () => {
     ustensileSearchInput.addEventListener("keyup", (ev) => {
       ev.preventDefault();
       if (ev.target.value.length > 3) {
-        const recipeArr = filterRecipesByUstensile(ev.target.value);
-        localStorage.setItem("_recipeResults", JSON.stringify(recipeArr));
-        displayResult();
+        const recipeToDisplay = filterRecipesByUstensile(ev.target.value);
+        localStorage.setItem("_recipeResults", JSON.stringify(recipeToDisplay));
+        displayRecipes();
         loadSelectData();
       } else {
         localStorage.setItem("_recipeResults", JSON.stringify(totalRecipes));
-        displayResult();
+        displayRecipes();
         loadSelectData();
       }
     });
     loadSelectData();
-    displayResult();
+    displayRecipes();
   }
 };
 
@@ -74,10 +74,10 @@ const loadSelectData = () => {
     selectFilterUL.innerHTML = "";
   }
 
-  let recipeArr = JSON.parse(localStorage.getItem("_recipeResults"));
+  let recipeToDisplay = JSON.parse(localStorage.getItem("_recipeResults"));
 
   //Scénario alternatif A3
-  recipeArr.map((recipe) => {
+  recipeToDisplay.map((recipe) => {
     recipe.ustensils.map((ustensil) => {
       const selectLI = document.createElement("li");
       const selectLink = document.createElement("a");
@@ -93,9 +93,9 @@ const loadSelectData = () => {
 
       selectLink.addEventListener("click", () => {
         tagFilterFactory(ustensil.toLowerCase());
-        recipeArr = filterRecipesByUstensile(ustensil);
-        localStorage.setItem("_recipeResults", JSON.stringify(recipeArr));
-        displayResult();
+        recipeToDisplay = filterRecipesByUstensile(ustensil);
+        localStorage.setItem("_recipeResults", JSON.stringify(recipeToDisplay));
+        displayRecipes();
         selectUstensileFactory();
       });
     });

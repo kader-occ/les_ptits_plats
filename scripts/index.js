@@ -1,5 +1,5 @@
 import { totalRecipes } from "../../data/recipes.js";
-import { displayResult } from "./UI/display-result.js";
+import { displayRecipes } from "./UI/display-recipes.js";
 import { filterRecipesByKeywords } from "./UI/filter-recipes.js";
 import { selectAppareilFactory } from "./UI/select-appareil-factory.js";
 import { selectIngredientFactory } from "./UI/select-ingredient-factory.js";
@@ -24,16 +24,16 @@ onload = () => {
 
   searchInput.addEventListener("keyup", () => {
     if (searchInput.value.length >= 3) {
-      const recipeArr = filterRecipesByKeywords(searchInput.value);
-      localStorage.setItem("_recipeResults", JSON.stringify(recipeArr));
-      displayResult();
+      const recipeToDisplay = filterRecipesByKeywords(searchInput.value);
+      localStorage.setItem("_recipeResults", JSON.stringify(recipeToDisplay));
+      displayRecipes();
     } else {
       localStorage.setItem("_recipeResults", JSON.stringify(totalRecipes));
-      displayResult();
+      displayRecipes();
     }
   });
 
-  displayResult();
+  displayRecipes();
   loadSelect();
 };
 

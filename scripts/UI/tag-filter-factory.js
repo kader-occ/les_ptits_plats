@@ -1,6 +1,5 @@
-import { totalRecipes } from "../../data/recipes.js";
 import { loadSelect } from "../index.js";
-import { displayResult } from "./display-result.js";
+import { displayRecipes } from "./display-recipes.js";
 import { handleRecipesByTag } from "./filter-recipes.js";
 
 let tagArr = [];
@@ -67,9 +66,9 @@ const badgeFilterIconCloseEvent = (badgeSelectLI) => {
   if (tagArr.length < 1) {
     location.reload();
   } else {
-    const recipeArr = handleRecipesByTag();
-    localStorage.setItem("_recipeResults", JSON.stringify(recipeArr[0]));
-    displayResult();
+    const recipeToDisplay = handleRecipesByTag();
+    localStorage.setItem("_recipeResults", JSON.stringify(recipeToDisplay[0]));
+    displayRecipes();
     loadSelect();
   }
 };

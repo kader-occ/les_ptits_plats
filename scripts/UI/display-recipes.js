@@ -5,9 +5,9 @@ import { noResult } from "./no-result.js";
 
 /**
  * Fonction qui affiche le resultat de la recherche
- * @param {Array} recipeArr
+ * @param {Array} recipeToDisplay
  */
-export const displayResult = () => {
+export const displayRecipes = () => {
   const searchInput = document.querySelector("#search-input");
   const btnResetHeaderSearchForm = document.querySelector(
     "#btn-reset-header-search-form"
@@ -18,24 +18,24 @@ export const displayResult = () => {
   const resultsDom = document.querySelector("#recipe-result-search");
   const recipeCards = document.getElementsByClassName("recipe-card");
 
-  const recipeArr = JSON.parse(localStorage.getItem("_recipeResults"));
+  const recipeToDisplay = JSON.parse(localStorage.getItem("_recipeResults"));
 
-  totalRecipesDom.textContent = recipeArr.length;
+  totalRecipesDom.textContent = recipeToDisplay.length;
 
-  if (recipeArr.length < totalRecipes.length) {
+  if (recipeToDisplay.length < totalRecipes.length) {
     btnResetHeaderSearchForm.classList.remove("d-none");
     removeHtmlElement(recipeCards);
   }
 
   // Scénario alternatif A1 (Aucun resultat trouvé)
-  if (!recipeArr.length && !noResultDom) {
+  if (!recipeToDisplay.length && !noResultDom) {
     noResult(searchInput.value);
   } else {
     // Scénario alternatif A2
     if (noResultDom) {
       noResultDom.remove();
     }
-    recipeArr.map((recipe) => {
+    recipeToDisplay.map((recipe) => {
       const recipeCard = cardRecipeFactory(recipe);
       resultsDom.append(recipeCard);
       mainDom.append(resultsDom);

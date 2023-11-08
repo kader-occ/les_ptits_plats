@@ -1,10 +1,10 @@
 import { rotateHtmlElement } from "../utils/rotate-html-element.js";
 import { toCapitalize } from "../utils/to-capitalize.js";
 import { tagFilterFactory } from "./tag-filter-factory.js";
-import { displayResult } from "./display-result.js";
 import { filterRecipesByIngredient } from "./filter-recipes.js";
 import { removeDuplicate } from "../utils/remove-duplicate.js";
 import { totalRecipes } from "../../data/recipes.js";
+import { displayRecipes } from "./display-recipes.js";
 
 export const selectIngredientFactory = () => {
   const selectIcon = document.querySelector("#ingredient-select-chevron-icon");
@@ -51,18 +51,18 @@ export const selectIngredientFactory = () => {
     ingredientSearchInput.addEventListener("keyup", (ev) => {
       ev.preventDefault();
       if (ev.target.value.length > 3) {
-        const recipeArr = filterRecipesByIngredient(ev.target.value);
-        localStorage.setItem("_recipeResults", JSON.stringify(recipeArr));
+        const recipeToDisplay = filterRecipesByIngredient(ev.target.value);
+        localStorage.setItem("_recipeResults", JSON.stringify(recipeToDisplay));
         loadSelectData();
-        displayResult();
+        displayRecipes();
       } else {
         localStorage.setItem("_recipeResults", JSON.stringify(totalRecipes));
         loadSelectData();
-        displayResult();
+        displayRecipes();
       }
     });
     loadSelectData();
-    displayResult();
+    displayRecipes();
   }
 };
 
@@ -74,9 +74,9 @@ const loadSelectData = () => {
     selectFilterUL.innerHTML = "";
   }
 
-  let recipeArr = JSON.parse(localStorage.getItem("_recipeResults"));
+  let recipeToDisplay = JSON.parse(localStorage.getItem("_recipeResults"));
 
-  recipeArr.map((recipe) => {
+  recipeToDisplay.map((recipe) => {
     recipe.ingredients.map((ingredient) => {
       const selectLI = document.createElement("li");
       const selectLink = document.createElement("a");
@@ -92,9 +92,9 @@ const loadSelectData = () => {
 
       selectLink.addEventListener("click", () => {
         tagFilterFactory(toCapitalize(ingredient.ingredient));
-        recipeArr = filterRecipesByIngredient(ingredient.ingredient);
-        localStorage.setItem("_recipeResults", JSON.stringify(recipeArr));
-        displayResult();
+        recipeToDisplay = filterRecipesByIngredient(ingredient.ingredient);
+        localStorage.setItem("_recipeResults", JSON.stringify(recipeToDisplay));
+        displayRecipes();
         selectIngredientFactory();
       });
     });

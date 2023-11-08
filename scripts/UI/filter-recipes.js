@@ -25,8 +25,8 @@ export const filterRecipesByKeywords = (searchKeywords) => {
  * @returns
  */
 export const filterRecipesByIngredient = (keyword) => {
-  let recipeArr = JSON.parse(localStorage.getItem("_recipeResults"));
-  return recipeArr.filter((recipe) => {
+  let recipeToDisplay = JSON.parse(localStorage.getItem("_recipeResults"));
+  return recipeToDisplay.filter((recipe) => {
     return recipe.ingredients.find((ingredient) => {
       return (
         ingredient.ingredient === toCapitalize(keyword) ||
@@ -43,8 +43,8 @@ export const filterRecipesByIngredient = (keyword) => {
  * @returns
  */
 export const filterRecipesByAppareil = (keyword) => {
-  let recipeArr = JSON.parse(localStorage.getItem("_recipeResults"));
-  return recipeArr.filter((recipe) => {
+  let recipeToDisplay = JSON.parse(localStorage.getItem("_recipeResults"));
+  return recipeToDisplay.filter((recipe) => {
     return (
       recipe.appliance === keyword.toLowerCase() ||
       recipe.appliance === keyword ||
@@ -59,8 +59,8 @@ export const filterRecipesByAppareil = (keyword) => {
  * @returns
  */
 export const filterRecipesByUstensile = (keyword) => {
-  let recipeArr = JSON.parse(localStorage.getItem("_recipeResults"));
-  return recipeArr.filter((recipe) => {
+  let recipeToDisplay = JSON.parse(localStorage.getItem("_recipeResults"));
+  return recipeToDisplay.filter((recipe) => {
     return recipe.ustensils.find((ustensil) => {
       return (
         ustensil === toCapitalize(keyword) ||
