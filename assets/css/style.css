@@ -68,9 +68,9 @@ header form input {
   font-size: 16px;
 }
 
-header form #inputSearchBtnReset {
+header form #btn-reset-header-search-form {
   margin-left: -90px;
-  font-size: 22px;
+  font-size: 26px;
   cursor: pointer;
 }
 
@@ -90,7 +90,6 @@ main {
 main #filters .select-box {
   background: #fff;
   cursor: pointer;
-  padding: 14px;
   border: 1px solid #d9d7d7;
   border-radius: 6px;
   height: auto;
@@ -100,12 +99,31 @@ main #filters .select-box {
   margin-right: 60px;
 }
 
-main #filters .select-box span {
-  pointer-events: none;
-}
-
 main #filters .select-box .icon-search-filter {
   margin-left: -20px;
+}
+
+main #filters .select-box ul,
+#badge-filter-ul {
+  list-style: none;
+  padding: 0;
+}
+
+main #filters .select-box .select-option {
+  cursor: pointer;
+  margin: 0;
+}
+
+main #filters .select-box .select-option:hover,
+#badge-filter-ul .badge-li {
+  background-color: var(--yellow);
+  text-align: left;
+  font-weight: 100;
+}
+
+main #filters #badge-filter-ul .btn-close-badge-filter {
+  float: right;
+  font-size: 18px;
 }
 
 main #filters #total-recipes {
@@ -118,4 +136,76 @@ main #filters #total-recipes {
 
 main #filters span {
   color: #1b1b1b;
+}
+
+main #results input {
+  border-radius: 0 !important;
+}
+
+main #recipe-result-search {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 30px;
+  margin: 60px 0;
+}
+
+main #recipe-result-search .recipe-card {
+  background-color: #fff;
+  border-radius: 21px;
+}
+
+main #recipe-result-search .recipe-card .recipe-time-div {
+  position: relative;
+}
+
+main #recipe-result-search .recipe-card .recipe-time-p {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  background-color: var(--yellow);
+  font-size: 12px;
+  color: var(--black);
+  border-radius: 14px;
+  padding: 5px 15px;
+}
+
+main #recipe-result-search .recipe-card .recipe-img {
+  width: 100%;
+  height: 253px;
+  object-fit: cover;
+  border-top-left-radius: 21px;
+  border-top-right-radius: 21px;
+}
+
+main #recipe-result-search .recipe-card .card-content {
+  padding: 25px;
+}
+
+main #recipe-result-search .recipe-card .recipe-name {
+  text-align: left;
+  font-family: var(--anton-font);
+  font-size: 18px;
+  font-weight: 400;
+  color: var(--black);
+}
+
+main #recipe-result-search .recipe-card .recipe-label {
+  text-transform: uppercase;
+  color: var(--gray);
+  font-size: 12px;
+}
+
+main #recipe-result-search .recipe-card .recipe-description,
+.ingredient {
+  font-size: 14px;
+  color: var(--black);
+}
+
+main #recipe-result-search .recipe-card .ingredient-quantity {
+  font-size: 14px;
+  color: var(--gray);
+}
+
+main #recipe-result-search .recipe-card #recipe-ingredient p {
+  margin: 0 !important;
 }

@@ -24,52 +24,34 @@
       <button type="submit">
         <img src="assets/images/header_search_icon.png" alt="search" id="search-form-btn-submit" />
       </button>
-      <i class="bi bi-x d-none" id="btn-reset-search-form"></i>
+      <i id="btn-reset-header-search-form" class="bi bi-x d-none"></i>
     </form>
   </header>
 
   <main>
     <section id="filters" class="row mt-5 justify-content-center">
       <div class="col-3 position-relative">
-        <div class="select-box">
-          <div id="ingredient-select-box">
-            <span>Ingrédients</span>
-            <i class="bi bi-chevron-down float-end"></i>
-          </div>
-          <div id="ingredient-result" class="d-none px-1">
-            <div class="d-flex justify-content-center align-items-center">
-              <input id="ingredient-search-input" type="text" class="form-control my-3">
-              <i class="bi bi-search icon-search-filter"></i>
-            </div>
-          </div>
+        <div id="ingredient-select-box" class="select-box p-3">
+          <a id="ingredient-select-box-link">
+            Ingrédients
+            <i id="ingredient-select-chevron-icon" class="bi bi-chevron-down float-end select-icon"></i>
+          </a>
         </div>
       </div>
       <div class="col-3 position-relative">
-        <div class="select-box">
-          <div id="appareil-select-box">
-            <span>Appareils</span>
-            <i class="bi bi-chevron-down float-end"></i>
-          </div>
-          <div id="appareil-result" class="d-none px-1">
-            <div class="d-flex justify-content-center align-items-center">
-              <input id="appareil-search-input" type="text" class="form-control my-3">
-              <i class="bi bi-search icon-search-filter"></i>
-            </div>
-          </div>
+        <div id="appareil-select-box" class="select-box p-3">
+          <a id="appareil-select-box-link">
+            Appareils
+            <i id="appareil-select-chevron-icon" class=" bi bi-chevron-down float-end select-icon"></i>
+          </a>
         </div>
       </div>
       <div class="col-3 position-relative">
-        <div class="select-box">
-          <div id="ustensile-select-box">
-            <span>Ustensiles</span>
-            <i class="bi bi-chevron-down float-end"></i>
-          </div>
-          <div id="ustensile-result" class="d-none px-1">
-            <div class="d-flex justify-content-center align-items-center">
-              <input id="ustensile-search-input" type="text" class="form-control my-3">
-              <i class="bi bi-search icon-search-filter"></i>
-            </div>
-          </div>
+        <div id="ustensile-select-box" class="select-box p-3">
+          <a id="ustensile-select-box-link">
+            Ustensiles
+            <i id="ustensile-select-chevron-icon" class=" bi bi-chevron-down float-end select-icon"></i>
+          </a>
         </div>
       </div>
       <div class="col-3" id="total-recipes">
@@ -78,11 +60,13 @@
       </div>
     </section>
 
+    <section id="recipe-result-search""></section>
+
 </body>
 
-<script src="./node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
-<script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-
-<script type="module" src="scripts/index.js"></script>
+  <script src=" ./node_modules/@popperjs/core/dist/umd/popper.min.js">
+  </script>
+      <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+      <script type="module" src="scripts/index.js"></script>
 
 </html>

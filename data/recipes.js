@@ -41,7 +41,7 @@ export const totalRecipes = [
     servings: 2,
     ingredients: [
       {
-        ingredient: "Thon Rouge (ou blanc)",
+        ingredient: "Thon rouge (ou blanc)",
         quantity: 200,
         unit: "grammes",
       },
@@ -58,11 +58,11 @@ export const totalRecipes = [
         quantity: 1,
       },
       {
-        ingredient: "Citron Vert",
+        ingredient: "Citron vert",
         quantity: 5,
       },
       {
-        ingredient: "Lait de Coco",
+        ingredient: "Lait de coco",
         quantity: 100,
         unit: "ml",
       },
@@ -269,7 +269,7 @@ export const totalRecipes = [
     description:
       "Étaler la pate dans les moules à tartelette. Faire cuire la pate 30 minutes. Découper le chocolat en morceau et le faire chauffer, y ajouter la crème liquide, ajouter le beurre et remuer jusqu'à avoir une pâte homogène. Verser la pate sur les tartelettes. Couper les fraises en 2 et les positionner sur ",
     appliance: "Four",
-    ustensils: ["moule à tartelettes (6)", "casserole"],
+    ustensils: ["moule à tartelettes(6)", "casserole"],
   },
   {
     id: 8,
@@ -302,7 +302,7 @@ export const totalRecipes = [
         unit: "grammes",
       },
       {
-        ingredient: "farine",
+        ingredient: "Farine",
         quantity: 90,
         unit: "grammes",
       },
@@ -382,7 +382,7 @@ export const totalRecipes = [
     description:
       "Commencer par cuire les pommes de terre dans l'eau bouillante. Puis épluchez les et coupez les en rondelles. Émincer les oignons puis les faire dorer dans du beurre. Ajouter le jambon fumé coupé en en morceaux ainsi que les pommes de terres. Salez, poivrez à votre gout ( et celui de vos convives ) Laissez cuisiner durant environ 10 minutes puis ajouter le vin blanc. Après 5 minutes, mettre le tout dans un plat à gratin. Coupez le reblochon, soit en tranches, soit le couper en 2 dans le sens de l'épaisseur et recouvrir les pommes de terre. Cuire au four (environ 220°) durant 25 minutes. C'est prêt !",
     appliance: "Four",
-    ustensils: ["plat à gratin", "couteau", "Économe"],
+    ustensils: ["plat à gratin", "couteau", "econome"],
   },
   {
     id: 11,
@@ -483,7 +483,7 @@ export const totalRecipes = [
         unit: "cuillère à soupe",
       },
       {
-        ingredient: "huile d'olive",
+        ingredient: "Huile d'olive",
         quantity: 2,
         unit: "cuillère à soupe",
       },
@@ -602,7 +602,7 @@ export const totalRecipes = [
         unit: "tiges",
       },
       {
-        ingredient: "huile d'olives",
+        ingredient: "Huile d'olives",
         quantity: 2,
         unit: "cuillère à soupe",
       },
@@ -736,7 +736,7 @@ export const totalRecipes = [
         unit: "grammes",
       },
       {
-        ingredient: "huile d'olive",
+        ingredient: "Huile d'olive",
         quantity: 1,
         unit: "cuillères à soupe",
       },
@@ -1597,7 +1597,7 @@ export const totalRecipes = [
         unit: "grammes",
       },
       {
-        ingredient: "farine",
+        ingredient: "Farine",
         quantity: 40,
         unit: "grammes",
       },
