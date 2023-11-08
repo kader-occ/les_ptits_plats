@@ -7,34 +7,44 @@ import { totalRecipes } from "../../data/recipes.js";
  * @returns
  */
 export const filterRecipesByKeywords = (searchKeywords) => {
-  return totalRecipes.filter((recipe) => {
-    return (
-      recipe.name.includes(searchKeywords.toLowerCase()) ||
-      recipe.name.includes(toCapitalize(searchKeywords)) ||
-      recipe.description.includes(searchKeywords.toLowerCase()) ||
-      recipe.ingredients.find((ingredient) => {
-        return ingredient.ingredient === toCapitalize(searchKeywords);
-      })
-    );
+  let recipeToDisplay = [];
+  totalRecipes.forEach((recipe) => {
+    if (recipe.name.includes(searchKeywords.toLowerCase())) {
+      recipeToDisplay.push(recipe);
+    } else if (recipe.name.includes(toCapitalize(searchKeywords))) {
+      recipeToDisplay.push(recipe);
+    } else if (recipe.description.includes(searchKeywords.toLowerCase())) {
+      recipeToDisplay.push(recipe);
+    }
+    recipe.ingredients.forEach((ingredient) => {
+      if (ingredient.ingredient === toCapitalize(searchKeywords)) {
+        recipeToDisplay.push(recipe);
+      }
+    });
+    return recipeToDisplay;
   });
 };
 
 /**
- *Filtre Ingredient
+ * Filtre Ingredient
  * @param {string} keyword
  * @returns
  */
 export const filterRecipesByIngredient = (keyword) => {
-  let recipeToDisplay = JSON.parse(localStorage.getItem("_recipeResults"));
-  return recipeToDisplay.filter((recipe) => {
-    return recipe.ingredients.find((ingredient) => {
-      return (
-        ingredient.ingredient === toCapitalize(keyword) ||
-        ingredient.ingredient === keyword ||
-        ingredient.ingredient.includes(keyword)
-      );
+  let recipeResults = JSON.parse(localStorage.getItem("_recipeResults"));
+  let recipeToDisplay = [];
+  recipeResults.forEach((recipe) => {
+    recipe.ingredients.forEach((ingredient) => {
+      if (ingredient.ingredient === toCapitalize(keyword)) {
+        recipeToDisplay.push(recipe);
+      } else if (ingredient.ingredient === keyword) {
+        recipeToDisplay.push(recipe);
+      } else if (ingredient.ingredient.includes(keyword)) {
+        recipeToDisplay.push(recipe);
+      }
     });
   });
+  return recipeToDisplay;
 };
 
 /**
@@ -43,14 +53,18 @@ export const filterRecipesByIngredient = (keyword) => {
  * @returns
  */
 export const filterRecipesByAppareil = (keyword) => {
-  let recipeToDisplay = JSON.parse(localStorage.getItem("_recipeResults"));
-  return recipeToDisplay.filter((recipe) => {
-    return (
-      recipe.appliance === keyword.toLowerCase() ||
-      recipe.appliance === keyword ||
-      recipe.appliance === toCapitalize(keyword)
-    );
+  let recipeResults = JSON.parse(localStorage.getItem("_recipeResults"));
+  let recipeToDisplay = [];
+  recipeResults.forEach((recipe) => {
+    if (recipe.appliance === keyword.toLowerCase()) {
+      recipeToDisplay.push(recipe);
+    } else if (recipe.appliance === keyword) {
+      recipeToDisplay.push(recipe);
+    } else if (recipe.appliance === toCapitalize(keyword)) {
+      recipeToDisplay.push(recipe);
+    }
   });
+  return recipeToDisplay;
 };
 
 /**
@@ -59,16 +73,21 @@ export const filterRecipesByAppareil = (keyword) => {
  * @returns
  */
 export const filterRecipesByUstensile = (keyword) => {
-  let recipeToDisplay = JSON.parse(localStorage.getItem("_recipeResults"));
-  return recipeToDisplay.filter((recipe) => {
-    return recipe.ustensils.find((ustensil) => {
-      return (
-        ustensil === toCapitalize(keyword) ||
-        ustensil === keyword ||
-        ustensil.includes(keyword)
-      );
+  let recipeResults = JSON.parse(localStorage.getItem("_recipeResults"));
+  let recipeToDisplay = [];
+
+  recipeResults.forEach((recipe) => {
+    recipe.ustensils.forEach((ustensil) => {
+      if (ustensil === toCapitalize(keyword)) {
+        recipeToDisplay.push(recipe);
+      } else if (ustensil === keyword) {
+        recipeToDisplay.push(recipe);
+      } else if (ustensil.includes(keyword)) {
+        recipeToDisplay.push(recipe);
+      }
     });
   });
+  return recipeToDisplay;
 };
 
 /**
@@ -77,21 +96,28 @@ export const filterRecipesByUstensile = (keyword) => {
  */
 export const handleRecipesByTag = () => {
   let tagArr = JSON.parse(localStorage.getItem("_tags"));
-  return tagArr.map((tag) => {
-    return totalRecipes.filter((recipe) => {
-      return (
-        recipe.name.includes(tag) ||
-        recipe.name.includes(toCapitalize(tag)) ||
-        recipe.name.includes(tag.toLowerCase()) ||
-        recipe.description.includes(tag) ||
-        recipe.ingredients.find((ingredient) => {
-          return (
-            ingredient.ingredient === toCapitalize(tag) ||
-            ingredient.ingredient === tag ||
-            ingredient.ingredient.includes(tag)
-          );
-        })
-      );
+  let recipeToDisplay = [];
+  tagArr.forEach((tag) => {
+    totalRecipes.forEach((recipe) => {
+      if (recipe.name.includes(tag)) {
+        recipeToDisplay.push(recipe);
+      } else if (recipe.name.includes(toCapitalize(tag))) {
+        recipeToDisplay.push(recipe);
+      } else if (recipe.name.includes(tag.toLowerCase())) {
+        recipeToDisplay.push(recipe);
+      } else if (recipe.description.includes(tag)) {
+        recipeToDisplay.push(recipe);
+      }
+      recipe.ingredients.forEach((ingredient) => {
+        if (ingredient.ingredient === toCapitalize(tag)) {
+          recipeToDisplay.push(recipe);
+        } else if (ingredient.ingredient === tag) {
+          recipeToDisplay.push(recipe);
+        } else if (ingredient.ingredient.includes(tag)) {
+          recipeToDisplay.push(recipe);
+        }
+      });
     });
   });
+  return recipeToDisplay;
 };
