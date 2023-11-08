@@ -5,84 +5,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Les petits plats</title>
-  <link rel="stylesheet" href="assets/css/style.css" />
-  <link rel="stylesheet" href="node_modules/bootstrap-icons/font/bootstrap-icons.min.css">
 </head>
 
 <body>
 
-  <header>
-    <a href="index.html">
-      <img src="assets/images/logo.png" alt="logo" class="logo" />
-    </a>
-    <h1>
-      Cherchez parmis plus de 1500 recettes du quotidien, simples et
-      délicieuses
-    </h1>
-    <form id="search-form" role="form">
-      <input type="text" placeholder="Rechercher une recette, un ingrédient..." id="search-input" />
-      <button type="submit">
-        <img src="assets/images/header_search_icon.png" alt="search" id="search-form-btn-submit" />
-      </button>
-      <i class="bi bi-x d-none" id="btn-reset-search-form"></i>
-    </form>
-  </header>
-
-  <main>
-    <section id="filters" class="row mt-5 justify-content-center">
-      <div class="col-3 position-relative">
-        <div class="select-box">
-          <div id="ingredient-select-box">
-            <span>Ingrédients</span>
-            <i class="bi bi-chevron-down float-end"></i>
-          </div>
-          <div id="ingredient-result" class="d-none px-1">
-            <div class="d-flex justify-content-center align-items-center">
-              <input id="ingredient-search-input" type="text" class="form-control my-3">
-              <i class="bi bi-search icon-search-filter"></i>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-3 position-relative">
-        <div class="select-box">
-          <div id="appareil-select-box">
-            <span>Appareils</span>
-            <i class="bi bi-chevron-down float-end"></i>
-          </div>
-          <div id="appareil-result" class="d-none px-1">
-            <div class="d-flex justify-content-center align-items-center">
-              <input id="appareil-search-input" type="text" class="form-control my-3">
-              <i class="bi bi-search icon-search-filter"></i>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-3 position-relative">
-        <div class="select-box">
-          <div id="ustensile-select-box">
-            <span>Ustensiles</span>
-            <i class="bi bi-chevron-down float-end"></i>
-          </div>
-          <div id="ustensile-result" class="d-none px-1">
-            <div class="d-flex justify-content-center align-items-center">
-              <input id="ustensile-search-input" type="text" class="form-control my-3">
-              <i class="bi bi-search icon-search-filter"></i>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-3" id="total-recipes">
-        <span id="recipes-numbers"></span>
-        <span>recettes</span>
-      </div>
-    </section>
-
 </body>
-
-<script src="./node_modules/@popperjs/core/dist/umd/popper.min.js"></script>
-<script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-
-<script type="module" src="scripts/index.js"></script>
 
 </html>
