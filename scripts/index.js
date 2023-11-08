@@ -1,6 +1,6 @@
 import { totalRecipes } from "../../data/recipes.js";
 import { displayRecipes } from "./UI/display-recipes.js";
-import { filterRecipesByKeywords } from "./UI/filter-recipes.js";
+import { filterRecipesByKeywords } from "./algo/filter-recipes.js";
 import { selectAppareilFactory } from "./UI/select-appareil-factory.js";
 import { selectIngredientFactory } from "./UI/select-ingredient-factory.js";
 import { selectUstensileFactory } from "./UI/select-ustensile-factory.js";

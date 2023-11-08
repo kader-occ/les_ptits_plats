@@ -1,6 +1,6 @@
 import { loadSelect } from "../index.js";
 import { displayRecipes } from "./display-recipes.js";
-import { handleRecipesByTag } from "./filter-recipes.js";
+import { handleRecipesByTag } from "../algo/filter-recipes.js";
 
 let tagArr = [];
 

@@ -1,7 +1,7 @@
 import { rotateHtmlElement } from "../utils/rotate-html-element.js";
 import { toCapitalize } from "../utils/to-capitalize.js";
 import { tagFilterFactory } from "./tag-filter-factory.js";
-import { filterRecipesByIngredient } from "./filter-recipes.js";
+import { filterRecipesByIngredient } from "../algo/filter-recipes.js";
 import { removeDuplicate } from "../utils/remove-duplicate.js";
 import { totalRecipes } from "../../data/recipes.js";
 import { displayRecipes } from "./display-recipes.js";
