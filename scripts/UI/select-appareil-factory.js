@@ -3,7 +3,7 @@ import { removeDuplicate } from "../utils/remove-duplicate.js";
 import { rotateHtmlElement } from "../utils/rotate-html-element.js";
 import { toCapitalize } from "../utils/to-capitalize.js";
 import { displayRecipes } from "./display-recipes.js";
-import { filterRecipesByAppareil } from "./filter-recipes.js";
+import { filterRecipesByAppareil } from "./algo/filter-recipes.js";
 import { tagFilterFactory } from "./tag-filter-factory.js";
 
 export const selectAppareilFactory = () => {
