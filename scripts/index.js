@@ -25,7 +25,6 @@ onload = () => {
   searchInput.addEventListener("keyup", () => {
     if (searchInput.value.length >= 3) {
       const recipeToDisplay = filterRecipesByKeywords(searchInput.value);
-      console.log(recipeToDisplay);
       localStorage.setItem("_recipeResults", JSON.stringify(recipeToDisplay));
       displayRecipes();
     } else {

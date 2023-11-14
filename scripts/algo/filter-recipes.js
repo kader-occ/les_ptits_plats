@@ -21,8 +21,8 @@ export const filterRecipesByKeywords = (searchKeywords) => {
         recipeToDisplay.push(recipe);
       }
     });
-    return recipeToDisplay;
   });
+  return recipeToDisplay;
 };
 
 /**
