@@ -77,7 +77,7 @@ const loadSelectData = () => {
     selectFilterUL.innerHTML = "";
   }
 
-  const recipeToDisplay = JSON.parse(localStorage.getItem("_recipeResults"));
+  let recipeToDisplay = JSON.parse(localStorage.getItem("_recipeResults"));
 
   //Scénario alternatif A3
   recipeToDisplay.map((recipe) => {
@@ -102,7 +102,6 @@ const loadSelectData = () => {
         );
         localStorage.setItem("_recipeResults", JSON.stringify(recipeToDisplay));
         displayRecipes();
-        selectFilterUL();
       });
     });
   });

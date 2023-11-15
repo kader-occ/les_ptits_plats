@@ -77,7 +77,7 @@ const loadSelectData = () => {
     selectFilterUL.innerHTML = "";
   }
 
-  const recipeToDisplay = JSON.parse(localStorage.getItem("_recipeResults"));
+  let recipeToDisplay = JSON.parse(localStorage.getItem("_recipeResults"));
 
   recipeToDisplay.map((recipe) => {
     recipe.ingredients.map((ingredient) => {
@@ -101,7 +101,6 @@ const loadSelectData = () => {
         );
         localStorage.setItem("_recipeResults", JSON.stringify(recipeToDisplay));
         displayRecipes();
-        selectIngredientFactory();
       });
     });
   });
