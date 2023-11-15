@@ -8,7 +8,8 @@ import { totalRecipes } from "../../data/recipes.js";
  */
 export const filterRecipesByKeywords = (searchKeywords) => {
   let recipeToDisplay = [];
-  totalRecipes.forEach((recipe) => {
+  for (let i = 0; i < totalRecipes.length; i++) {
+    const recipe = totalRecipes[i];
     if (recipe.name.includes(searchKeywords.toLowerCase())) {
       recipeToDisplay.push(recipe);
     } else if (recipe.name.includes(toCapitalize(searchKeywords))) {
@@ -21,8 +22,8 @@ export const filterRecipesByKeywords = (searchKeywords) => {
         recipeToDisplay.push(recipe);
       }
     });
-    return recipeToDisplay;
-  });
+  }
+  return recipeToDisplay;
 };
 
 /**
@@ -30,11 +31,13 @@ export const filterRecipesByKeywords = (searchKeywords) => {
  * @param {string} keyword
  * @returns
  */
-export const filterRecipesByIngredient = (keyword) => {
-  let recipeResults = JSON.parse(localStorage.getItem("_recipeResults"));
+export const filterRecipesByIngredient = (keyword, recipeArr) => {
   let recipeToDisplay = [];
-  recipeResults.forEach((recipe) => {
-    recipe.ingredients.forEach((ingredient) => {
+
+  for (let i = 0; i < recipeArr.length; i++) {
+    const recipe = recipeArr[i];
+    for (let j = 0; j < recipe.ingredients.length; j++) {
+      const ingredient = recipe.ingredients[j];
       if (ingredient.ingredient === toCapitalize(keyword)) {
         recipeToDisplay.push(recipe);
       } else if (ingredient.ingredient === keyword) {
@@ -42,8 +45,8 @@ export const filterRecipesByIngredient = (keyword) => {
       } else if (ingredient.ingredient.includes(keyword)) {
         recipeToDisplay.push(recipe);
       }
-    });
-  });
+    }
+  }
   return recipeToDisplay;
 };
 
@@ -52,10 +55,11 @@ export const filterRecipesByIngredient = (keyword) => {
  * @param {string} keyword
  * @returns
  */
-export const filterRecipesByAppareil = (keyword) => {
-  let recipeResults = JSON.parse(localStorage.getItem("_recipeResults"));
+export const filterRecipesByAppareil = (keyword, recipeArr) => {
   let recipeToDisplay = [];
-  recipeResults.forEach((recipe) => {
+
+  for (let i = 0; i < recipeArr.length; i++) {
+    const recipe = recipeArr[i];
     if (recipe.appliance === keyword.toLowerCase()) {
       recipeToDisplay.push(recipe);
     } else if (recipe.appliance === keyword) {
@@ -63,7 +67,7 @@ export const filterRecipesByAppareil = (keyword) => {
     } else if (recipe.appliance === toCapitalize(keyword)) {
       recipeToDisplay.push(recipe);
     }
-  });
+  }
   return recipeToDisplay;
 };
 
@@ -72,12 +76,13 @@ export const filterRecipesByAppareil = (keyword) => {
  * @param {string} keyword
  * @returns
  */
-export const filterRecipesByUstensile = (keyword) => {
-  let recipeResults = JSON.parse(localStorage.getItem("_recipeResults"));
+export const filterRecipesByUstensile = (keyword, recipeArr) => {
   let recipeToDisplay = [];
 
-  recipeResults.forEach((recipe) => {
-    recipe.ustensils.forEach((ustensil) => {
+  for (let i = 0; i < recipeArr.length; i++) {
+    const recipe = recipeArr[i];
+    for (let j = 0; j < recipe.ustensils.length; j++) {
+      const ustensil = recipe.ustensils[j];
       if (ustensil === toCapitalize(keyword)) {
         recipeToDisplay.push(recipe);
       } else if (ustensil === keyword) {
@@ -85,8 +90,8 @@ export const filterRecipesByUstensile = (keyword) => {
       } else if (ustensil.includes(keyword)) {
         recipeToDisplay.push(recipe);
       }
-    });
-  });
+    }
+  }
   return recipeToDisplay;
 };
 
@@ -96,28 +101,11 @@ export const filterRecipesByUstensile = (keyword) => {
  */
 export const handleRecipesByTag = () => {
   let tagArr = JSON.parse(localStorage.getItem("_tags"));
-  let recipeToDisplay = [];
-  tagArr.forEach((tag) => {
-    totalRecipes.forEach((recipe) => {
-      if (recipe.name.includes(tag)) {
-        recipeToDisplay.push(recipe);
-      } else if (recipe.name.includes(toCapitalize(tag))) {
-        recipeToDisplay.push(recipe);
-      } else if (recipe.name.includes(tag.toLowerCase())) {
-        recipeToDisplay.push(recipe);
-      } else if (recipe.description.includes(tag)) {
-        recipeToDisplay.push(recipe);
-      }
-      recipe.ingredients.forEach((ingredient) => {
-        if (ingredient.ingredient === toCapitalize(tag)) {
-          recipeToDisplay.push(recipe);
-        } else if (ingredient.ingredient === tag) {
-          recipeToDisplay.push(recipe);
-        } else if (ingredient.ingredient.includes(tag)) {
-          recipeToDisplay.push(recipe);
-        }
-      });
-    });
-  });
-  return recipeToDisplay;
+  for (let i = 0; i < tagArr.length; i++) {
+    const tag = tagArr[i];
+    return filterRecipesByIngredient(tag, totalRecipes).concat(
+      filterRecipesByAppareil(tag, totalRecipes),
+      filterRecipesByUstensile(tag, totalRecipes)
+    );
+  }
 };

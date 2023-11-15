@@ -1,13 +1,16 @@
 import { totalRecipes } from "../../data/recipes.js";
 import { displayRecipes } from "./UI/display-recipes.js";
-import { filterRecipesByKeywords } from "./algo/filter-recipes.js";
+import {
+  filterRecipesByKeywords,
+  handleRecipesByTag,
+} from "./algo/filter-recipes.js";
 import { selectIngredientFactory } from "./UI/select-ingredient-factory.js";
 import { selectAppareilFactory } from "./UI/select-appareil-factory.js";
 import { selectUstensileFactory } from "./UI/select-ustensile-factory.js";
 
 onload = () => {
   localStorage.setItem("_recipeResults", JSON.stringify(totalRecipes));
-  localStorage.removeItem("_tags");
+  let tagArr = JSON.parse(localStorage.getItem("_tags"));
 
   const searchInput = document.querySelector("#search-input");
   const btnSubmitSearchForm = document.querySelector("#search-form-btn-submit");
@@ -25,12 +28,18 @@ onload = () => {
   searchInput.addEventListener("keyup", () => {
     if (searchInput.value.length >= 3) {
       const recipeToDisplay = filterRecipesByKeywords(searchInput.value);
-      console.log(recipeToDisplay);
       localStorage.setItem("_recipeResults", JSON.stringify(recipeToDisplay));
       displayRecipes();
     } else {
-      localStorage.setItem("_recipeResults", JSON.stringify(totalRecipes));
-      displayRecipes();
+      if (tagArr) {
+        const recipeToDisplay = handleRecipesByTag();
+        localStorage.setItem("_recipeResults", JSON.stringify(recipeToDisplay));
+        displayRecipes();
+        loadSelect();
+      } else {
+        localStorage.setItem("_recipeResults", JSON.stringify(totalRecipes));
+        displayRecipes();
+      }
     }
   });
 

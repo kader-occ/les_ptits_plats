@@ -1,10 +1,12 @@
 import { rotateHtmlElement } from "../utils/rotate-html-element.js";
 import { toCapitalize } from "../utils/to-capitalize.js";
 import { tagFilterFactory } from "./tag-filter-factory.js";
-import { filterRecipesByIngredient } from "./algo/filter-recipes.js";
+import { filterRecipesByIngredient } from "../algo/filter-recipes.js";
 import { removeDuplicate } from "../utils/remove-duplicate.js";
 import { totalRecipes } from "../../data/recipes.js";
 import { displayRecipes } from "./display-recipes.js";
+
+let recipeToDisplay = JSON.parse(localStorage.getItem("_recipeResults"));
 
 export const selectIngredientFactory = () => {
   const selectIcon = document.querySelector("#ingredient-select-chevron-icon");
@@ -51,7 +53,10 @@ export const selectIngredientFactory = () => {
     ingredientSearchInput.addEventListener("keyup", (ev) => {
       ev.preventDefault();
       if (ev.target.value.length > 3) {
-        const recipeToDisplay = filterRecipesByIngredient(ev.target.value);
+        recipeToDisplay = filterRecipesByIngredient(
+          ev.target.value,
+          recipeToDisplay
+        );
         localStorage.setItem("_recipeResults", JSON.stringify(recipeToDisplay));
         loadSelectData();
         displayRecipes();
@@ -74,8 +79,6 @@ const loadSelectData = () => {
     selectFilterUL.innerHTML = "";
   }
 
-  let recipeToDisplay = JSON.parse(localStorage.getItem("_recipeResults"));
-
   recipeToDisplay.map((recipe) => {
     recipe.ingredients.map((ingredient) => {
       const selectLI = document.createElement("li");
@@ -92,7 +95,10 @@ const loadSelectData = () => {
 
       selectLink.addEventListener("click", () => {
         tagFilterFactory(toCapitalize(ingredient.ingredient));
-        recipeToDisplay = filterRecipesByIngredient(ingredient.ingredient);
+        recipeToDisplay = filterRecipesByIngredient(
+          ingredient.ingredient,
+          recipeToDisplay
+        );
         localStorage.setItem("_recipeResults", JSON.stringify(recipeToDisplay));
         displayRecipes();
         selectIngredientFactory();
