@@ -17,11 +17,12 @@ export const filterRecipesByKeywords = (searchKeywords) => {
     } else if (recipe.description.includes(searchKeywords.toLowerCase())) {
       recipeToDisplay.push(recipe);
     }
-    recipe.ingredients.forEach((ingredient) => {
+    for (let j = 0; j < recipe.ingredients.length; j++) {
+      const ingredient = recipe.ingredients[j];
       if (ingredient.ingredient === toCapitalize(searchKeywords)) {
         recipeToDisplay.push(recipe);
       }
-    });
+    }
   }
   return recipeToDisplay;
 };
