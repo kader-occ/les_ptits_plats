@@ -28,11 +28,17 @@ onload = () => {
       localStorage.setItem("_recipeResults", JSON.stringify(recipeToDisplay));
       displayRecipes();
     } else {
-      localStorage.setItem("_recipeResults", JSON.stringify(totalRecipes));
-      displayRecipes();
+      if (tagArr) {
+        const recipeToDisplay = handleRecipesByTag();
+        localStorage.setItem("_recipeResults", JSON.stringify(recipeToDisplay));
+        displayRecipes();
+        loadSelect();
+      } else {
+        localStorage.setItem("_recipeResults", JSON.stringify(totalRecipes));
+        displayRecipes();
+      }
     }
   });
-
   displayRecipes();
   loadSelect();
 };
