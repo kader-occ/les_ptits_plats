@@ -27,19 +27,10 @@ onload = () => {
 
   searchInput.addEventListener("keyup", () => {
     if (searchInput.value.length >= 3) {
-      if (tagArr) {
-        const recipeToDisplay = handleRecipesByTag().concat(
-          filterRecipesByKeywords(searchInput.value)
-        );
-        localStorage.setItem("_recipeResults", JSON.stringify(recipeToDisplay));
-        displayRecipes();
-        loadSelect();
-      } else {
-        const recipeToDisplay = filterRecipesByKeywords(searchInput.value);
-        localStorage.setItem("_recipeResults", JSON.stringify(recipeToDisplay));
-        displayRecipes();
-        loadSelect();
-      }
+      const recipeToDisplay = filterRecipesByKeywords(searchInput.value);
+      localStorage.setItem("_recipeResults", JSON.stringify(recipeToDisplay));
+      displayRecipes();
+      loadSelect();
     } else {
       if (tagArr) {
         const recipeToDisplay = handleRecipesByTag();

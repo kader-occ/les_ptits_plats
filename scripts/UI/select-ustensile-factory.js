@@ -6,8 +6,6 @@ import { displayRecipes } from "./display-recipes.js";
 import { filterRecipesByUstensile } from "../algo/filter-recipes.js";
 import { tagFilterFactory } from "./tag-filter-factory.js";
 
-let recipeToDisplay = JSON.parse(localStorage.getItem("_recipeResults"));
-
 export const selectUstensileFactory = () => {
   const selectIcon = document.querySelector("#ustensile-select-chevron-icon");
   rotateHtmlElement(selectIcon);
@@ -53,9 +51,9 @@ export const selectUstensileFactory = () => {
     ustensileSearchInput.addEventListener("keyup", (ev) => {
       ev.preventDefault();
       if (ev.target.value.length > 3) {
-        recipeToDisplay = filterRecipesByUstensile(
+        const recipeToDisplay = filterRecipesByUstensile(
           ev.target.value,
-          recipeToDisplay
+          JSON.parse(localStorage.getItem("_recipeResults"))
         );
         localStorage.setItem("_recipeResults", JSON.stringify(recipeToDisplay));
         displayRecipes();
@@ -79,6 +77,8 @@ const loadSelectData = () => {
     selectFilterUL.innerHTML = "";
   }
 
+  let recipeToDisplay = JSON.parse(localStorage.getItem("_recipeResults"));
+
   //Scénario alternatif A3
   recipeToDisplay.map((recipe) => {
     recipe.ustensils.map((ustensil) => {
@@ -96,7 +96,10 @@ const loadSelectData = () => {
 
       selectLink.addEventListener("click", () => {
         tagFilterFactory(ustensil.toLowerCase());
-        recipeToDisplay = filterRecipesByUstensile(ustensil, recipeToDisplay);
+        recipeToDisplay = filterRecipesByUstensile(
+          ustensil,
+          JSON.parse(localStorage.getItem("_recipeResults"))
+        );
         localStorage.setItem("_recipeResults", JSON.stringify(recipeToDisplay));
         displayRecipes();
         selectUstensileFactory();

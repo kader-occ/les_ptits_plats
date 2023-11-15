@@ -6,8 +6,6 @@ import { removeDuplicate } from "../utils/remove-duplicate.js";
 import { totalRecipes } from "../../data/recipes.js";
 import { displayRecipes } from "./display-recipes.js";
 
-let recipeToDisplay = JSON.parse(localStorage.getItem("_recipeResults"));
-
 export const selectIngredientFactory = () => {
   const selectIcon = document.querySelector("#ingredient-select-chevron-icon");
   rotateHtmlElement(selectIcon);
@@ -53,9 +51,9 @@ export const selectIngredientFactory = () => {
     ingredientSearchInput.addEventListener("keyup", (ev) => {
       ev.preventDefault();
       if (ev.target.value.length > 3) {
-        recipeToDisplay = filterRecipesByIngredient(
+        const recipeToDisplay = filterRecipesByIngredient(
           ev.target.value,
-          recipeToDisplay
+          JSON.parse(localStorage.getItem("_recipeResults"))
         );
         localStorage.setItem("_recipeResults", JSON.stringify(recipeToDisplay));
         loadSelectData();
@@ -79,6 +77,8 @@ const loadSelectData = () => {
     selectFilterUL.innerHTML = "";
   }
 
+  let recipeToDisplay = JSON.parse(localStorage.getItem("_recipeResults"));
+
   recipeToDisplay.map((recipe) => {
     recipe.ingredients.map((ingredient) => {
       const selectLI = document.createElement("li");
@@ -97,7 +97,7 @@ const loadSelectData = () => {
         tagFilterFactory(toCapitalize(ingredient.ingredient));
         recipeToDisplay = filterRecipesByIngredient(
           ingredient.ingredient,
-          recipeToDisplay
+          JSON.parse(localStorage.getItem("_recipeResults"))
         );
         localStorage.setItem("_recipeResults", JSON.stringify(recipeToDisplay));
         displayRecipes();

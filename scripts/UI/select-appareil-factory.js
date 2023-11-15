@@ -6,8 +6,6 @@ import { displayRecipes } from "./display-recipes.js";
 import { filterRecipesByAppareil } from "../algo/filter-recipes.js";
 import { tagFilterFactory } from "./tag-filter-factory.js";
 
-let recipeToDisplay = JSON.parse(localStorage.getItem("_recipeResults"));
-
 export const selectAppareilFactory = () => {
   const selectIcon = document.querySelector("#appareil-select-chevron-icon");
   rotateHtmlElement(selectIcon);
@@ -53,9 +51,9 @@ export const selectAppareilFactory = () => {
     appareilSearchInput.addEventListener("keyup", (ev) => {
       ev.preventDefault();
       if (ev.target.value.length > 3) {
-        recipeToDisplay = filterRecipesByAppareil(
+        const recipeToDisplay = filterRecipesByAppareil(
           ev.target.value,
-          recipeToDisplay
+          JSON.parse(localStorage.getItem("_recipeResults"))
         );
         localStorage.setItem("_recipeResults", JSON.stringify(recipeToDisplay));
         displayRecipes();
@@ -79,6 +77,8 @@ const loadSelectData = () => {
     selectFilterUL.innerHTML = "";
   }
 
+  let recipeToDisplay = JSON.parse(localStorage.getItem("_recipeResults"));
+
   //Scénario alternatif A3
   recipeToDisplay.map((recipe) => {
     const selectLI = document.createElement("li");
@@ -97,7 +97,7 @@ const loadSelectData = () => {
       tagFilterFactory(toCapitalize(recipe.appliance));
       recipeToDisplay = filterRecipesByAppareil(
         recipe.appliance,
-        recipeToDisplay
+        JSON.parse(localStorage.getItem("_recipeResults"))
       );
       localStorage.setItem("_recipeResults", JSON.stringify(recipeToDisplay));
       displayRecipes();
