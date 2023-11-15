@@ -19,7 +19,9 @@ export const filterRecipesByKeywords = (searchKeywords) => {
     }
     for (let j = 0; j < recipe.ingredients.length; j++) {
       const ingredient = recipe.ingredients[j];
-      if (ingredient.ingredient === toCapitalize(searchKeywords)) {
+      if (ingredient.ingredient.includes(searchKeywords.toLowerCase())) {
+        recipeToDisplay.push(recipe);
+      } else if (ingredient.ingredient.includes(toCapitalize(searchKeywords))) {
         recipeToDisplay.push(recipe);
       }
     }
