@@ -51,7 +51,10 @@ export const selectIngredientFactory = () => {
     ingredientSearchInput.addEventListener("keyup", (ev) => {
       ev.preventDefault();
       if (ev.target.value.length > 3) {
-        const recipeToDisplay = filterRecipesByIngredient(ev.target.value);
+        const recipeToDisplay = filterRecipesByIngredient(
+          ev.target.value,
+          JSON.parse(localStorage.getItem("_recipeResults"))
+        );
         localStorage.setItem("_recipeResults", JSON.stringify(recipeToDisplay));
         loadSelectData();
         displayRecipes();
@@ -74,7 +77,7 @@ const loadSelectData = () => {
     selectFilterUL.innerHTML = "";
   }
 
-  let recipeToDisplay = JSON.parse(localStorage.getItem("_recipeResults"));
+  const recipeToDisplay = JSON.parse(localStorage.getItem("_recipeResults"));
 
   recipeToDisplay.map((recipe) => {
     recipe.ingredients.map((ingredient) => {
@@ -92,7 +95,10 @@ const loadSelectData = () => {
 
       selectLink.addEventListener("click", () => {
         tagFilterFactory(toCapitalize(ingredient.ingredient));
-        recipeToDisplay = filterRecipesByIngredient(ingredient.ingredient);
+        const recipeToDisplay = filterRecipesByIngredient(
+          ingredient.ingredient,
+          JSON.parse(localStorage.getItem("_recipeResults"))
+        );
         localStorage.setItem("_recipeResults", JSON.stringify(recipeToDisplay));
         displayRecipes();
         selectIngredientFactory();

@@ -24,9 +24,8 @@ export const filterRecipesByKeywords = (searchKeywords) => {
  * @param {string} keyword
  * @returns
  */
-export const filterRecipesByIngredient = (keyword) => {
-  let recipeToDisplay = JSON.parse(localStorage.getItem("_recipeResults"));
-  return recipeToDisplay.filter((recipe) => {
+export const filterRecipesByIngredient = (keyword, recipeArr) => {
+  return recipeArr.filter((recipe) => {
     return recipe.ingredients.find((ingredient) => {
       return (
         ingredient.ingredient === toCapitalize(keyword) ||
@@ -42,9 +41,8 @@ export const filterRecipesByIngredient = (keyword) => {
  * @param {string} keyword
  * @returns
  */
-export const filterRecipesByAppareil = (keyword) => {
-  let recipeToDisplay = JSON.parse(localStorage.getItem("_recipeResults"));
-  return recipeToDisplay.filter((recipe) => {
+export const filterRecipesByAppareil = (keyword, recipeArr) => {
+  return recipeArr.filter((recipe) => {
     return (
       recipe.appliance === keyword.toLowerCase() ||
       recipe.appliance === keyword ||
@@ -58,9 +56,8 @@ export const filterRecipesByAppareil = (keyword) => {
  * @param {string} keyword
  * @returns
  */
-export const filterRecipesByUstensile = (keyword) => {
-  let recipeToDisplay = JSON.parse(localStorage.getItem("_recipeResults"));
-  return recipeToDisplay.filter((recipe) => {
+export const filterRecipesByUstensile = (keyword, recipeArr) => {
+  return recipeArr.filter((recipe) => {
     return recipe.ustensils.find((ustensil) => {
       return (
         ustensil === toCapitalize(keyword) ||
@@ -78,20 +75,9 @@ export const filterRecipesByUstensile = (keyword) => {
 export const handleRecipesByTag = () => {
   let tagArr = JSON.parse(localStorage.getItem("_tags"));
   return tagArr.map((tag) => {
-    return totalRecipes.filter((recipe) => {
-      return (
-        recipe.name.includes(tag) ||
-        recipe.name.includes(toCapitalize(tag)) ||
-        recipe.name.includes(tag.toLowerCase()) ||
-        recipe.description.includes(tag) ||
-        recipe.ingredients.find((ingredient) => {
-          return (
-            ingredient.ingredient === toCapitalize(tag) ||
-            ingredient.ingredient === tag ||
-            ingredient.ingredient.includes(tag)
-          );
-        })
-      );
-    });
+    return filterRecipesByIngredient(tag, totalRecipes).concat(
+      filterRecipesByAppareil(tag, totalRecipes),
+      filterRecipesByUstensile(tag, totalRecipes)
+    );
   });
 };

@@ -51,7 +51,10 @@ export const selectUstensileFactory = () => {
     ustensileSearchInput.addEventListener("keyup", (ev) => {
       ev.preventDefault();
       if (ev.target.value.length > 3) {
-        const recipeToDisplay = filterRecipesByUstensile(ev.target.value);
+        const recipeToDisplay = filterRecipesByUstensile(
+          ev.target.value,
+          JSON.parse(localStorage.getItem("_recipeResults"))
+        );
         localStorage.setItem("_recipeResults", JSON.stringify(recipeToDisplay));
         displayRecipes();
         loadSelectData();
@@ -74,7 +77,7 @@ const loadSelectData = () => {
     selectFilterUL.innerHTML = "";
   }
 
-  let recipeToDisplay = JSON.parse(localStorage.getItem("_recipeResults"));
+  const recipeToDisplay = JSON.parse(localStorage.getItem("_recipeResults"));
 
   //Scénario alternatif A3
   recipeToDisplay.map((recipe) => {
@@ -93,10 +96,13 @@ const loadSelectData = () => {
 
       selectLink.addEventListener("click", () => {
         tagFilterFactory(ustensil.toLowerCase());
-        recipeToDisplay = filterRecipesByUstensile(ustensil);
+        const recipeToDisplay = filterRecipesByUstensile(
+          ustensil,
+          JSON.parse(localStorage.getItem("_recipeResults"))
+        );
         localStorage.setItem("_recipeResults", JSON.stringify(recipeToDisplay));
         displayRecipes();
-        selectUstensileFactory();
+        selectFilterUL();
       });
     });
   });

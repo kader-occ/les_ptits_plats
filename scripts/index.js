@@ -1,6 +1,9 @@
 import { totalRecipes } from "../../data/recipes.js";
 import { displayRecipes } from "./UI/display-recipes.js";
-import { filterRecipesByKeywords } from "./algo/filter-recipes.js";
+import {
+  filterRecipesByKeywords,
+  handleRecipesByTag,
+} from "./algo/filter-recipes.js";
 import { selectAppareilFactory } from "./UI/select-appareil-factory.js";
 import { selectIngredientFactory } from "./UI/select-ingredient-factory.js";
 import { selectUstensileFactory } from "./UI/select-ustensile-factory.js";
@@ -27,7 +30,9 @@ onload = () => {
       const recipeToDisplay = filterRecipesByKeywords(searchInput.value);
       localStorage.setItem("_recipeResults", JSON.stringify(recipeToDisplay));
       displayRecipes();
+      loadSelect();
     } else {
+      let tagArr = JSON.parse(localStorage.getItem("_tags"));
       if (tagArr) {
         const recipeToDisplay = handleRecipesByTag();
         localStorage.setItem("_recipeResults", JSON.stringify(recipeToDisplay));

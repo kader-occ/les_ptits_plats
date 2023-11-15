@@ -51,7 +51,10 @@ export const selectAppareilFactory = () => {
     appareilSearchInput.addEventListener("keyup", (ev) => {
       ev.preventDefault();
       if (ev.target.value.length > 3) {
-        const recipeToDisplay = filterRecipesByAppareil(ev.target.value);
+        const recipeToDisplay = filterRecipesByAppareil(
+          ev.target.value,
+          JSON.parse(localStorage.getItem("_recipeResults"))
+        );
         localStorage.setItem("_recipeResults", JSON.stringify(recipeToDisplay));
         displayRecipes();
         loadSelectData();
@@ -74,7 +77,7 @@ const loadSelectData = () => {
     selectFilterUL.innerHTML = "";
   }
 
-  let recipeToDisplay = JSON.parse(localStorage.getItem("_recipeResults"));
+  const recipeToDisplay = JSON.parse(localStorage.getItem("_recipeResults"));
 
   //Scénario alternatif A3
   recipeToDisplay.map((recipe) => {
@@ -92,7 +95,10 @@ const loadSelectData = () => {
 
     selectLink.addEventListener("click", () => {
       tagFilterFactory(toCapitalize(recipe.appliance));
-      recipeToDisplay = filterRecipesByAppareil(recipe.appliance);
+      const recipeToDisplay = filterRecipesByAppareil(
+        recipe.appliance,
+        JSON.parse(localStorage.getItem("_recipeResults"))
+      );
       localStorage.setItem("_recipeResults", JSON.stringify(recipeToDisplay));
       displayRecipes();
       selectAppareilFactory();
