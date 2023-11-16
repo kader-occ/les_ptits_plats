@@ -41,6 +41,7 @@ onload = () => {
       } else {
         localStorage.setItem("_recipeResults", JSON.stringify(totalRecipes));
         displayRecipes();
+        loadSelect();
       }
     }
   });

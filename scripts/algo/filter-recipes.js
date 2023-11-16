@@ -12,13 +12,13 @@ export const filterRecipesByKeywords = (searchKeywords) => {
       recipe.name.includes(searchKeywords.toLowerCase()) ||
       recipe.name.includes(toCapitalize(searchKeywords)) ||
       recipe.description.includes(searchKeywords.toLowerCase()) ||
-      recipe.description.includes(toCapitalize(searchKeywords)) ||
-      recipe.ingredients.find((ingredient) => {
-        return (
-          ingredient.ingredient.includes(searchKeywords.toLowerCase()) ||
-          ingredient.ingredient.includes(toCapitalize(searchKeywords))
-        );
-      })
+      (recipe.description.includes(toCapitalize(searchKeywords)) &&
+        recipe.ingredients.map((ingredient) => {
+          return (
+            ingredient.ingredient.includes(searchKeywords.toLowerCase()) ||
+            ingredient.ingredient.includes(toCapitalize(searchKeywords))
+          );
+        }))
     );
   });
 };
@@ -30,11 +30,10 @@ export const filterRecipesByKeywords = (searchKeywords) => {
  */
 export const filterRecipesByIngredient = (keyword, recipeArr) => {
   return recipeArr.filter((recipe) => {
-    return recipe.ingredients.find((ingredient) => {
+    return recipe.ingredients.filter((ingredient) => {
       return (
-        ingredient.ingredient === toCapitalize(keyword) ||
-        ingredient.ingredient === keyword ||
-        ingredient.ingredient.includes(keyword)
+        ingredient.ingredient.includes(keyword.toLowerCase()) ||
+        ingredient.ingredient.includes(toCapitalize(keyword))
       );
     });
   });
@@ -49,7 +48,6 @@ export const filterRecipesByAppareil = (keyword, recipeArr) => {
   return recipeArr.filter((recipe) => {
     return (
       recipe.appliance === keyword.toLowerCase() ||
-      recipe.appliance === keyword ||
       recipe.appliance === toCapitalize(keyword)
     );
   });
@@ -62,12 +60,8 @@ export const filterRecipesByAppareil = (keyword, recipeArr) => {
  */
 export const filterRecipesByUstensile = (keyword, recipeArr) => {
   return recipeArr.filter((recipe) => {
-    return recipe.ustensils.find((ustensil) => {
-      return (
-        ustensil === toCapitalize(keyword) ||
-        ustensil === keyword ||
-        ustensil.includes(keyword)
-      );
+    return recipe.ustensils.filter((ustensil) => {
+      return ustensil.includes(keyword) || ustensil.includes(keyword);
     });
   });
 };
@@ -78,10 +72,7 @@ export const filterRecipesByUstensile = (keyword, recipeArr) => {
  */
 export const handleRecipesByTag = () => {
   let tagArr = JSON.parse(localStorage.getItem("_tags"));
-  return tagArr.map((tag) => {
-    return filterRecipesByIngredient(tag, totalRecipes).concat(
-      filterRecipesByAppareil(tag, totalRecipes),
-      filterRecipesByUstensile(tag, totalRecipes)
-    );
+  return tagArr.forEach((tag) => {
+    return filterRecipesByKeywords(tag);
   });
 };

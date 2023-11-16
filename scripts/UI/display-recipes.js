@@ -5,7 +5,6 @@ import { noResult } from "./no-result.js";
 
 /**
  * Fonction qui affiche le resultat de la recherche
- * @param {Array} recipeToDisplay
  */
 export const displayRecipes = () => {
   const searchInput = document.querySelector("#search-input");
