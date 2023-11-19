@@ -101,6 +101,7 @@ const loadSelectData = () => {
       );
       localStorage.setItem("_recipeResults", JSON.stringify(recipeToDisplay));
       displayRecipes();
+      selectAppareilFactory();
     });
   });
   const selectOptions = document.querySelectorAll(".select-option");

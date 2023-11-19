@@ -102,6 +102,7 @@ const loadSelectData = () => {
         );
         localStorage.setItem("_recipeResults", JSON.stringify(recipeToDisplay));
         displayRecipes();
+        selectUstensileFactory();
       });
     });
   });

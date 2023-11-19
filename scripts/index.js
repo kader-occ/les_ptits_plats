@@ -29,21 +29,16 @@ onload = () => {
     if (searchInput.value.length >= 3) {
       const recipeToDisplay = filterRecipesByKeywords(searchInput.value);
       localStorage.setItem("_recipeResults", JSON.stringify(recipeToDisplay));
-      displayRecipes();
-      loadSelect();
     } else {
       let tagArr = JSON.parse(localStorage.getItem("_tags"));
       if (tagArr) {
         const recipeToDisplay = handleRecipesByTag();
         localStorage.setItem("_recipeResults", JSON.stringify(recipeToDisplay));
-        displayRecipes();
-        loadSelect();
       } else {
         localStorage.setItem("_recipeResults", JSON.stringify(totalRecipes));
-        displayRecipes();
-        loadSelect();
       }
     }
+    displayRecipes();
   });
   displayRecipes();
   loadSelect();
