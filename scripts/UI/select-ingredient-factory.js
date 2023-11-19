@@ -56,12 +56,8 @@ export const selectIngredientFactory = () => {
           JSON.parse(localStorage.getItem("_recipeResults"))
         );
         localStorage.setItem("_recipeResults", JSON.stringify(recipeToDisplay));
-        loadSelectData();
-        displayRecipes();
       } else {
         localStorage.setItem("_recipeResults", JSON.stringify(totalRecipes));
-        loadSelectData();
-        displayRecipes();
       }
     });
     loadSelectData();

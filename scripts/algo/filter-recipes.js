@@ -106,9 +106,11 @@ export const handleRecipesByTag = () => {
   let tagArr = JSON.parse(localStorage.getItem("_tags"));
   for (let i = 0; i < tagArr.length; i++) {
     const tag = tagArr[i];
-    return filterRecipesByIngredient(tag, totalRecipes).concat(
-      filterRecipesByAppareil(tag, totalRecipes),
-      filterRecipesByUstensile(tag, totalRecipes)
+    console.log(
+      filterRecipesByIngredient(tag, totalRecipes).concat(
+        filterRecipesByAppareil(tag, totalRecipes),
+        filterRecipesByUstensile(tag, totalRecipes)
+      )
     );
   }
 };
