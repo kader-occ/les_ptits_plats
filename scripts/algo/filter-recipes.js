@@ -73,6 +73,9 @@ export const filterRecipesByUstensile = (keyword, recipeArr) => {
 export const handleRecipesByTag = () => {
   let tagArr = JSON.parse(localStorage.getItem("_tags"));
   return tagArr.forEach((tag) => {
-    return filterRecipesByKeywords(tag);
+    return filterRecipesByIngredient(tag, totalRecipes).concat(
+      filterRecipesByAppareil(tag, totalRecipes),
+      filterRecipesByUstensile(tag, totalRecipes)
+    );
   });
 };

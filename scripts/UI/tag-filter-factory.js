@@ -64,6 +64,7 @@ const badgeFilterIconCloseEvent = (badgeSelectLI) => {
   badgeSelectLI.remove();
 
   const recipeToDisplay = handleRecipesByTag();
+  console.log(recipeToDisplay);
   localStorage.setItem("_recipeResults", JSON.stringify(recipeToDisplay));
   displayRecipes();
   loadSelect();
