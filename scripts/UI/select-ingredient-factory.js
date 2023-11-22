@@ -48,20 +48,22 @@ export const selectIngredientFactory = () => {
     ingredientResult.append(selectFilterUL);
     ingredientSelectBox.append(ingredientResult);
 
+    const recipeDisplayed = JSON.parse(localStorage.getItem("_recipeResults"));
+
     ingredientSearchInput.addEventListener("keyup", (ev) => {
       ev.preventDefault();
       if (ev.target.value.length > 3) {
         const recipeToDisplay = filterRecipesByIngredient(
           ev.target.value,
-          JSON.parse(localStorage.getItem("_recipeResults"))
+          recipeDisplayed
         );
         localStorage.setItem("_recipeResults", JSON.stringify(recipeToDisplay));
-        loadSelectData();
         displayRecipes();
+        loadSelectData();
       } else {
         localStorage.setItem("_recipeResults", JSON.stringify(totalRecipes));
-        loadSelectData();
         displayRecipes();
+        loadSelectData();
       }
     });
     loadSelectData();
@@ -79,6 +81,7 @@ const loadSelectData = () => {
 
   let recipeToDisplay = JSON.parse(localStorage.getItem("_recipeResults"));
 
+  //Scénario alternatif A3
   recipeToDisplay.map((recipe) => {
     recipe.ingredients.map((ingredient) => {
       const selectLI = document.createElement("li");
@@ -87,7 +90,7 @@ const loadSelectData = () => {
       selectLink.id = "ingredient-link";
 
       selectLI.classList.add("select-option", "py-3");
-      selectLink.textContent += toCapitalize(ingredient.ingredient);
+      selectLink.textContent = toCapitalize(ingredient.ingredient);
 
       selectLI.append(selectLink);
       selectFilterUL.append(selectLI);

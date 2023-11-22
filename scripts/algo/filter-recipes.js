@@ -30,10 +30,10 @@ export const filterRecipesByKeywords = (searchKeywords) => {
  */
 export const filterRecipesByIngredient = (keyword, recipeArr) => {
   return recipeArr.filter((recipe) => {
-    return recipe.ingredients.filter((ingredient) => {
+    return recipe.ingredients.find((ingredient) => {
       return (
-        ingredient.ingredient.includes(keyword.toLowerCase()) ||
-        ingredient.ingredient.includes(toCapitalize(keyword))
+        ingredient.ingredient === keyword.toLowerCase() ||
+        ingredient.ingredient === toCapitalize(keyword)
       );
     });
   });
@@ -60,8 +60,10 @@ export const filterRecipesByAppareil = (keyword, recipeArr) => {
  */
 export const filterRecipesByUstensile = (keyword, recipeArr) => {
   return recipeArr.filter((recipe) => {
-    return recipe.ustensils.filter((ustensil) => {
-      return ustensil.includes(keyword) || ustensil.includes(keyword);
+    return recipe.ustensils.find((ustensil) => {
+      return (
+        ustensil === keyword.toLowerCase() || ustensil === toCapitalize(keyword)
+      );
     });
   });
 };
@@ -72,9 +74,10 @@ export const filterRecipesByUstensile = (keyword, recipeArr) => {
  */
 export const handleRecipesByTag = () => {
   let tagArr = JSON.parse(localStorage.getItem("_tags"));
-  return tagArr.forEach((tag) => {
-    return filterRecipesByIngredient(tag, totalRecipes).concat(
-      filterRecipesByAppareil(tag, totalRecipes),
+  return tagArr.map((tag) => {
+    return (
+      filterRecipesByIngredient(tag, totalRecipes) ||
+      filterRecipesByAppareil(tag, totalRecipes) ||
       filterRecipesByUstensile(tag, totalRecipes)
     );
   });
