@@ -35,11 +35,16 @@ onload = () => {
     } else {
       let tagArr = JSON.parse(localStorage.getItem("_tags"));
       if (tagArr) {
-        const recipeToDisplay = handleRecipesByTagIngredient().concat(
+        let recipeToDisplay = [].concat(
+          handleRecipesByTagIngredient(),
           handleRecipesByTagAppareil(),
           handleRecipesByTagUstensile()
         );
-        localStorage.setItem("_recipeResults", JSON.stringify(recipeToDisplay));
+        recipeToDisplay = recipeToDisplay.filter((arr) => arr.length > 0);
+        localStorage.setItem(
+          "_recipeResults",
+          JSON.stringify(recipeToDisplay[0])
+        );
         displayRecipes();
       } else {
         localStorage.setItem("_recipeResults", JSON.stringify(totalRecipes));

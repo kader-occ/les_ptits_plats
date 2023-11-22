@@ -12,19 +12,21 @@ export const filterRecipesByKeywords = (searchKeywords) => {
       recipe.name.includes(searchKeywords.toLowerCase()) ||
       recipe.name.includes(toCapitalize(searchKeywords)) ||
       recipe.description.includes(searchKeywords.toLowerCase()) ||
-      (recipe.description.includes(toCapitalize(searchKeywords)) &&
-        recipe.ingredients.map((ingredient) => {
-          return (
-            ingredient.ingredient.includes(searchKeywords.toLowerCase()) ||
-            ingredient.ingredient.includes(toCapitalize(searchKeywords))
-          );
-        }))
+      recipe.description.includes(toCapitalize(searchKeywords)) ||
+      recipe.ingredients.find((ingredient) => {
+        return (
+          ingredient.ingredient.includes(searchKeywords.toLowerCase()) ||
+          ingredient.ingredient.includes(toCapitalize(searchKeywords)) ||
+          ingredient.ingredient === searchKeywords.toLowerCase() ||
+          ingredient.ingredient === toCapitalize(searchKeywords)
+        );
+      })
     );
   });
 };
 
 /**
- *Filtre Ingredient
+ * Filtre Ingredient
  * @param {string} keyword
  * @returns
  */
