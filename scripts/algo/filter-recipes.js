@@ -33,7 +33,9 @@ export const filterRecipesByIngredient = (keyword, recipeArr) => {
     return recipe.ingredients.find((ingredient) => {
       return (
         ingredient.ingredient === keyword.toLowerCase() ||
-        ingredient.ingredient === toCapitalize(keyword)
+        ingredient.ingredient === toCapitalize(keyword) ||
+        ingredient.ingredient.includes(keyword.toLowerCase()) ||
+        ingredient.ingredient.includes(toCapitalize(keyword))
       );
     });
   });
@@ -62,7 +64,10 @@ export const filterRecipesByUstensile = (keyword, recipeArr) => {
   return recipeArr.filter((recipe) => {
     return recipe.ustensils.find((ustensil) => {
       return (
-        ustensil === keyword.toLowerCase() || ustensil === toCapitalize(keyword)
+        ustensil === keyword.toLowerCase() ||
+        ustensil === toCapitalize(keyword) ||
+        ustensil.includes(keyword.toLowerCase()) ||
+        ustensil.includes(toCapitalize(keyword))
       );
     });
   });
