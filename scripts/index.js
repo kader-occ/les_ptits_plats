@@ -2,7 +2,9 @@ import { totalRecipes } from "../../data/recipes.js";
 import { displayRecipes } from "./UI/display-recipes.js";
 import {
   filterRecipesByKeywords,
-  handleRecipesByTag,
+  handleRecipesByTagAppareil,
+  handleRecipesByTagIngredient,
+  handleRecipesByTagUstensile,
 } from "./algo/filter-recipes.js";
 import { selectIngredientFactory } from "./UI/select-ingredient-factory.js";
 import { selectAppareilFactory } from "./UI/select-appareil-factory.js";
@@ -32,8 +34,16 @@ onload = () => {
     } else {
       const tagArr = JSON.parse(localStorage.getItem("_tags"));
       if (tagArr) {
-        const recipeToDisplay = handleRecipesByTag();
-        localStorage.setItem("_recipeResults", JSON.stringify(recipeToDisplay));
+        let recipeToDisplay = [].concat(
+          handleRecipesByTagIngredient(),
+          handleRecipesByTagAppareil(),
+          handleRecipesByTagUstensile()
+        );
+        recipeToDisplay = recipeToDisplay.filter((arr) => arr.length > 0);
+        localStorage.setItem(
+          "_recipeResults",
+          JSON.stringify(recipeToDisplay[0])
+        );
       } else {
         localStorage.setItem("_recipeResults", JSON.stringify(totalRecipes));
       }

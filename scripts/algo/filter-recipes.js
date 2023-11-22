@@ -101,17 +101,34 @@ export const filterRecipesByUstensile = (keyword, recipeArr) => {
 };
 
 /**
- * Gestion des tags
+ * Gestion tag ingredient
  * @returns Array
  */
-export const handleRecipesByTag = () => {
+export const handleRecipesByTagIngredient = () => {
   let tagArr = JSON.parse(localStorage.getItem("_tags"));
-  for (let i = 0; i < tagArr.length; i++) {
-    const tag = tagArr[i];
-    return (
-      filterRecipesByIngredient(tag, totalRecipes) ||
-      filterRecipesByAppareil(tag, totalRecipes) ||
-      filterRecipesByUstensile(tag, totalRecipes)
-    );
-  }
+  return tagArr.map((tag) => {
+    return filterRecipesByIngredient(tag, totalRecipes);
+  });
+};
+
+/**
+ * Gestion tag appareil
+ * @returns Array
+ */
+export const handleRecipesByTagAppareil = () => {
+  let tagArr = JSON.parse(localStorage.getItem("_tags"));
+  return tagArr.map((tag) => {
+    return filterRecipesByAppareil(tag, totalRecipes);
+  });
+};
+
+/**
+ * Gestion tag ustensile
+ * @returns Array
+ */
+export const handleRecipesByTagUstensile = () => {
+  let tagArr = JSON.parse(localStorage.getItem("_tags"));
+  return tagArr.map((tag) => {
+    return filterRecipesByUstensile(tag, totalRecipes);
+  });
 };

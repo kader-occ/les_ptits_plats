@@ -1,5 +1,9 @@
 import { displayRecipes } from "./display-recipes.js";
-import { handleRecipesByTag } from "../algo/filter-recipes.js";
+import {
+  handleRecipesByTagAppareil,
+  handleRecipesByTagIngredient,
+  handleRecipesByTagUstensile,
+} from "../algo/filter-recipes.js";
 
 let tagArr = [];
 
@@ -65,8 +69,13 @@ const badgeFilterIconCloseEvent = (badgeSelectLI) => {
   if (tagArr.length < 1) {
     location.reload();
   } else {
-    const recipeToDisplay = handleRecipesByTag();
-    localStorage.setItem("_recipeResults", JSON.stringify(recipeToDisplay));
+    let recipeToDisplay = [].concat(
+      handleRecipesByTagIngredient(),
+      handleRecipesByTagAppareil(),
+      handleRecipesByTagUstensile()
+    );
+    recipeToDisplay = recipeToDisplay.filter((arr) => arr.length > 0);
+    localStorage.setItem("_recipeResults", JSON.stringify(recipeToDisplay[0]));
   }
   displayRecipes();
 };
