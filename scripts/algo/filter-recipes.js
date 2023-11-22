@@ -33,9 +33,7 @@ export const filterRecipesByIngredient = (keyword, recipeArr) => {
     return recipe.ingredients.find((ingredient) => {
       return (
         ingredient.ingredient === keyword.toLowerCase() ||
-        ingredient.ingredient === toCapitalize(keyword) ||
-        ingredient.ingredient.includes(keyword.toLowerCase()) ||
-        ingredient.ingredient.includes(toCapitalize(keyword))
+        ingredient.ingredient === toCapitalize(keyword)
       );
     });
   });
@@ -64,26 +62,41 @@ export const filterRecipesByUstensile = (keyword, recipeArr) => {
   return recipeArr.filter((recipe) => {
     return recipe.ustensils.find((ustensil) => {
       return (
-        ustensil === keyword.toLowerCase() ||
-        ustensil === toCapitalize(keyword) ||
-        ustensil.includes(keyword.toLowerCase()) ||
-        ustensil.includes(toCapitalize(keyword))
+        ustensil === keyword.toLowerCase() || ustensil === toCapitalize(keyword)
       );
     });
   });
 };
 
 /**
- * Gestion des tags
+ * Gestion tag ingredient
  * @returns Array
  */
-export const handleRecipesByTag = () => {
+export const handleRecipesByTagIngredient = () => {
   let tagArr = JSON.parse(localStorage.getItem("_tags"));
   return tagArr.map((tag) => {
-    return (
-      filterRecipesByIngredient(tag, totalRecipes) ||
-      filterRecipesByAppareil(tag, totalRecipes) ||
-      filterRecipesByUstensile(tag, totalRecipes)
-    );
+    return filterRecipesByIngredient(tag, totalRecipes);
+  });
+};
+
+/**
+ * Gestion tag appareil
+ * @returns Array
+ */
+export const handleRecipesByTagAppareil = () => {
+  let tagArr = JSON.parse(localStorage.getItem("_tags"));
+  return tagArr.map((tag) => {
+    return filterRecipesByAppareil(tag, totalRecipes);
+  });
+};
+
+/**
+ * Gestion tag ustensile
+ * @returns Array
+ */
+export const handleRecipesByTagUstensile = () => {
+  let tagArr = JSON.parse(localStorage.getItem("_tags"));
+  return tagArr.map((tag) => {
+    return filterRecipesByUstensile(tag, totalRecipes);
   });
 };
