@@ -68,7 +68,6 @@ const badgeFilterIconCloseEvent = (badgeSelectLI) => {
   } else {
     const recipeToDisplay = handleRecipesByTag();
     localStorage.setItem("_recipeResults", JSON.stringify(recipeToDisplay));
-    displayRecipes();
-    loadSelect();
   }
+  displayRecipes();
 };
