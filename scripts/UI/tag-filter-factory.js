@@ -1,4 +1,3 @@
-import { loadSelect } from "../index.js";
 import { displayRecipes } from "./display-recipes.js";
 import { handleRecipesByTag } from "../algo/filter-recipes.js";
 

@@ -10,7 +10,7 @@ import { selectUstensileFactory } from "./UI/select-ustensile-factory.js";
 
 onload = () => {
   localStorage.setItem("_recipeResults", JSON.stringify(totalRecipes));
-  let tagArr = JSON.parse(localStorage.getItem("_tags"));
+  localStorage.removeItem("_tags");
 
   const searchInput = document.querySelector("#search-input");
   const btnSubmitSearchForm = document.querySelector("#search-form-btn-submit");
@@ -30,7 +30,8 @@ onload = () => {
       const recipeToDisplay = filterRecipesByKeywords(searchInput.value);
       localStorage.setItem("_recipeResults", JSON.stringify(recipeToDisplay));
     } else {
-      if (tagArr.length > 0) {
+      const tagArr = JSON.parse(localStorage.getItem("_tags"));
+      if (tagArr) {
         const recipeToDisplay = handleRecipesByTag();
         localStorage.setItem("_recipeResults", JSON.stringify(recipeToDisplay));
       } else {
