@@ -92,6 +92,8 @@ export const filterRecipesByUstensile = (keyword, recipeArr) => {
         recipeToDisplay.push(recipe);
       } else if (ustensil.includes(keyword)) {
         recipeToDisplay.push(recipe);
+      } else if (ustensil === toCapitalize(keyword)) {
+        recipeToDisplay.push(recipe);
       }
     }
   }
