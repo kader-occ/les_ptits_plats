@@ -51,7 +51,10 @@ export const selectUstensileFactory = () => {
     ustensileSearchInput.addEventListener("keyup", (ev) => {
       ev.preventDefault();
       if (ev.target.value.length > 3) {
-        const recipeToDisplay = filterRecipesByUstensile(ev.target.value);
+        const recipeToDisplay = filterRecipesByUstensile(
+          ev.target.value,
+          JSON.parse(localStorage.getItem("_recipeResults"))
+        );
         localStorage.setItem("_recipeResults", JSON.stringify(recipeToDisplay));
         displayRecipes();
         loadSelectData();
@@ -93,7 +96,10 @@ const loadSelectData = () => {
 
       selectLink.addEventListener("click", () => {
         tagFilterFactory(ustensil.toLowerCase());
-        recipeToDisplay = filterRecipesByUstensile(ustensil);
+        recipeToDisplay = filterRecipesByUstensile(
+          ustensil,
+          JSON.parse(localStorage.getItem("_recipeResults"))
+        );
         localStorage.setItem("_recipeResults", JSON.stringify(recipeToDisplay));
         displayRecipes();
         selectUstensileFactory();
