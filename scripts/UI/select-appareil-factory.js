@@ -50,18 +50,15 @@ export const selectAppareilFactory = () => {
 
     appareilSearchInput.addEventListener("keyup", (ev) => {
       ev.preventDefault();
-      if (ev.target.value.length > 3) {
+      if (ev.target.value.length >= 3) {
         const recipeToDisplay = filterRecipesByAppareil(
           ev.target.value,
           JSON.parse(localStorage.getItem("_recipeResults"))
         );
         localStorage.setItem("_recipeResults", JSON.stringify(recipeToDisplay));
-        displayRecipes();
-        loadSelectData();
+        selectAppareilFactory();
       } else {
         localStorage.setItem("_recipeResults", JSON.stringify(totalRecipes));
-        displayRecipes();
-        loadSelectData();
       }
     });
     loadSelectData();

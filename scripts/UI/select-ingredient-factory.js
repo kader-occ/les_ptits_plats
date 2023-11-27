@@ -50,12 +50,13 @@ export const selectIngredientFactory = () => {
 
     ingredientSearchInput.addEventListener("keyup", (ev) => {
       ev.preventDefault();
-      if (ev.target.value.length > 3) {
+      if (ev.target.value.length >= 3) {
         const recipeToDisplay = filterRecipesByIngredient(
           ev.target.value,
           JSON.parse(localStorage.getItem("_recipeResults"))
         );
         localStorage.setItem("_recipeResults", JSON.stringify(recipeToDisplay));
+        selectIngredientFactory();
       } else {
         localStorage.setItem("_recipeResults", JSON.stringify(totalRecipes));
       }

@@ -50,18 +50,15 @@ export const selectUstensileFactory = () => {
 
     ustensileSearchInput.addEventListener("keyup", (ev) => {
       ev.preventDefault();
-      if (ev.target.value.length > 3) {
+      if (ev.target.value.length >= 3) {
         const recipeToDisplay = filterRecipesByUstensile(
           ev.target.value,
           JSON.parse(localStorage.getItem("_recipeResults"))
         );
         localStorage.setItem("_recipeResults", JSON.stringify(recipeToDisplay));
-        displayRecipes();
-        loadSelectData();
+        selectUstensileFactory();
       } else {
         localStorage.setItem("_recipeResults", JSON.stringify(totalRecipes));
-        displayRecipes();
-        loadSelectData();
       }
     });
     loadSelectData();

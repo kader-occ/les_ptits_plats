@@ -1,5 +1,9 @@
+import {
+  handleRecipesByTagAppareil,
+  handleRecipesByTagIngredient,
+  handleRecipesByTagUstensile,
+} from "../algo/filter-recipes.js";
 import { displayRecipes } from "./display-recipes.js";
-import { handleRecipesByTag } from "./algo/filter-recipes.js";
 
 let tagArr = [];
 

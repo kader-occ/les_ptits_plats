@@ -24,9 +24,9 @@ export const filterRecipesByKeywords = (searchKeywords) => {
       } else if (ingredient.ingredient.includes(toCapitalize(searchKeywords))) {
         recipeToDisplay.push(recipe);
       }
-    });
-    return recipeToDisplay;
-  });
+    }
+  }
+  return recipeToDisplay;
 };
 
 /**
